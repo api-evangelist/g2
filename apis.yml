@@ -1,0 +1,107 @@
+aid: g2
+url: https://raw.githubusercontent.com/api-evangelist/g2/refs/heads/main/apis.yml
+apis:
+- aid: g2:g2-api
+  name: G2 API
+  tags:
+  - Reviews
+  - Products
+  - Categories
+  - Software Discovery
+  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  baseURL: https://data.g2.com
+  humanURL: https://documentation.g2.com/docs/g2-api
+  properties:
+  - url: https://documentation.g2.com/docs/g2-api
+    name: API Documentation
+    type: Documentation
+  - url: https://data.g2.com/api/docs
+    name: API Reference
+    type: OpenAPI
+  - url: https://documentation.g2.com/docs/developer-portal
+    name: Developer Portal
+    type: Portal
+  - url: https://documentation.g2.com/docs/g2-api-information
+    name: API Information
+    type: GettingStarted
+  - url: https://documentation.g2.com/docs/integrations
+    name: Integrations
+    type: Integrations
+  description: >-
+    The G2 API provides programmatic access to G2's product, category, and review
+    data. It enables developers to retrieve software product listings, user reviews,
+    category taxonomies, and competitive intelligence data from the world's largest
+    B2B software marketplace. The API supports endpoints for products, categories,
+    reviews, and syndication, and uses token-based authentication. Partners and
+    developers can use the API to embed G2 review widgets, sync review data, power
+    product discovery features, and integrate G2 buyer intent signals into their
+    own platforms and workflows.
+name: G2
+tags:
+- Software Reviews
+- B2B
+- Software Discovery
+type: Index
+image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+access: 3rd-Party
+common:
+- url: https://www.g2.com/
+  name: G2 Website
+  type: Website
+- url: https://documentation.g2.com/docs/g2-api
+  name: API Documentation
+  type: Documentation
+- url: https://data.g2.com/api/docs
+  name: API Reference
+  type: OpenAPI
+- url: https://documentation.g2.com/docs/developer-portal
+  name: Developer Portal
+  type: Portal
+- url: https://www.g2.com/users/sign_up
+  name: Sign Up
+  type: SignUp
+- url: https://www.g2.com/users/sign_in
+  name: Login
+  type: Login
+- url: https://sell.g2.com/plans
+  name: Pricing
+  type: Pricing
+- url: https://legal.g2.com/terms-of-use
+  name: Terms of Use
+  type: TermsOfService
+- url: https://legal.g2.com/privacy-policy
+  name: Privacy Policy
+  type: PrivacyPolicy
+- url: https://legal.g2.com/
+  name: Legal Documentation
+  type: Legal
+- url: https://support.g2.com/s/
+  name: Support Portal
+  type: Support
+- url: https://company.g2.com/contact
+  name: Contact
+  type: Contact
+- url: https://learn.g2.com/
+  name: G2 Learning Hub
+  type: Blog
+- url: https://partnerhub.g2.com/
+  name: G2 Partner Hub
+  type: Partners
+- url: https://partner.g2.com/
+  name: Partner with G2
+  type: Partners
+- url: https://documentation.g2.com/partners/docs/get-started-with-g2-review-syndication
+  name: Review Syndication Guide
+  type: Guide
+- url: https://documentation.g2.com/partners/docs/get-started-with-g2-taxonomy-syndication
+  name: Taxonomy Syndication Guide
+  type: Guide
+- url: https://www.linkedin.com/company/g2dotcom
+  name: G2 on LinkedIn
+  type: LinkedIn
+- url: https://x.com/G2dotcom
+  name: G2 on X (Twitter)
+  type: X
+created: '2026-03-24'
+modified: '2026-03-24'
+specificationVersion: '0.19'
