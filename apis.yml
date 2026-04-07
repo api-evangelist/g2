@@ -1,16 +1,14 @@
 aid: g2
-url: 
-  https://raw.githubusercontent.com/api-evangelist/g2/refs/heads/main/apis.yml
+url: https://raw.githubusercontent.com/api-evangelist/g2/refs/heads/main/apis.yml
 apis:
   - aid: g2:g2-api
     name: G2 API
     tags:
-      - Reviews
-      - Products
       - Categories
+      - Products
+      - Reviews
       - Software Discovery
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://data.g2.com
     humanURL: https://documentation.g2.com/docs/g2-api
     properties:
@@ -37,12 +35,11 @@ apis:
       reviews, and syndication, and uses token-based authentication.
 name: G2
 tags:
-  - Software Reviews
   - B2B
   - Software Discovery
+  - Software Reviews
 type: Index
-image: 
-  https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
 common:
   - url: https://www.g2.com/
@@ -90,12 +87,10 @@ common:
   - url: https://partner.g2.com/
     name: Partner with G2
     type: Partners
-  - url: 
-      https://documentation.g2.com/partners/docs/get-started-with-g2-review-syndication
+  - url: https://documentation.g2.com/partners/docs/get-started-with-g2-review-syndication
     name: Review Syndication Guide
     type: Guide
-  - url: 
-      https://documentation.g2.com/partners/docs/get-started-with-g2-taxonomy-syndication
+  - url: https://documentation.g2.com/partners/docs/get-started-with-g2-taxonomy-syndication
     name: Taxonomy Syndication Guide
     type: Guide
   - url: https://www.linkedin.com/company/g2dotcom
