@@ -1,0 +1,13 @@
+{
+  "repo": "g2",
+  "feeds": [
+    {
+      "source": "https://learn.g2.com/",
+      "feed_url": "https://learn.g2.com/rss.xml",
+      "saved": 10,
+      "title": "Learn Hub"
+    }
+  ],
+  "post_count": 10,
+  "fetched": "2026-05-03T23:28:02Z"
+}
