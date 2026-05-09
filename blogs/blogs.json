@@ -3,11 +3,11 @@
   "feeds": [
     {
       "source": "https://learn.g2.com/",
-      "feed_url": "https://learn.g2.com/rss.xml",
-      "saved": 10,
-      "title": "Learn Hub"
+      "feed_url": "https://learn.g2.com/atom.xml",
+      "title": "Learn Hub",
+      "saved": 18
     }
   ],
-  "post_count": 10,
-  "fetched": "2026-05-03T23:28:02Z"
+  "post_count": 28,
+  "fetched": "2026-05-09T20:17:51Z"
 }
