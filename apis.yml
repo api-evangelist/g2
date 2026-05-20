@@ -43,6 +43,8 @@ apis:
       - type: Integrations
         url: https://documentation.g2.com/docs/integrations
 common:
+  - type: GitHubOrganization
+    url: https://github.com/g2crowd
   - type: Documentation
     url: https://documentation.g2.com/docs/g2-api
   - type: APIReference
