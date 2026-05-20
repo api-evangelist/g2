@@ -5,9 +5,10 @@
       "source": "https://learn.g2.com/",
       "feed_url": "https://learn.g2.com/atom.xml",
       "title": "Learn Hub",
-      "saved": 18
+      "saved": 0,
+      "last_error": "http_404"
     }
   ],
   "post_count": 28,
-  "fetched": "2026-05-09T20:17:51Z"
+  "fetched": "2026-05-17T20:20:35Z"
 }
