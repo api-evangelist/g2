@@ -51,7 +51,7 @@ common:
     url: https://data.g2.com/api/docs
   - type: Portal
     url: https://documentation.g2.com/docs/developer-portal
-  - type: SignUp
+  - type: Signup
     url: https://www.g2.com/users/sign_up
   - type: Login
     url: https://www.g2.com/users/sign_in

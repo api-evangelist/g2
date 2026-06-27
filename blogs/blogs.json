@@ -5,7 +5,7 @@
       "source": "https://learn.g2.com/rss.xml",
       "feed_url": "https://learn.g2.com/rss.xml",
       "title": "",
-      "saved": 27,
+      "saved": 19,
       "method": "feed"
     },
     {
@@ -16,6 +16,6 @@
       "method": "none"
     }
   ],
-  "post_count": 123,
-  "fetched": "2026-06-14T20:42:17Z"
+  "post_count": 156,
+  "fetched": "2026-06-27T12:03:07Z"
 }
