@@ -43,6 +43,10 @@ apis:
       - type: Integrations
         url: https://documentation.g2.com/docs/integrations
 common:
+  - type: TrustCenter
+    url: security/g2-trust-center.yml
+  - type: DomainSecurity
+    url: security/g2-domain-security.yml
   - type: GitHubOrganization
     url: https://github.com/g2crowd
   - type: Documentation
