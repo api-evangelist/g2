@@ -4,7 +4,19 @@ description: >-
   The G2 API provides programmatic access to G2's product, category, and review data.
   Use the API to integrate G2 data into your workflows and applications.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Freemium
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/g2.png
 access: 3rd-Party
 url: https://raw.githubusercontent.com/api-evangelist/g2/refs/heads/main/apis.yml
 created: '2026-03-24'
