@@ -21,7 +21,7 @@ access: 3rd-Party
 url: https://raw.githubusercontent.com/api-evangelist/g2/refs/heads/main/apis.yml
 created: '2026-03-24'
 modified: '2026-04-18'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 tags:
   - B2B
   - Software Discovery
