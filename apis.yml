@@ -40,6 +40,11 @@ apis:
     humanURL: https://documentation.g2.com/docs/g2-api
     tags:
       - Categories
+      - Product
+      - Reviews
+      - Software Discovery
+    tags_raw:
+      - Categories
       - Products
       - Reviews
       - Software Discovery
