@@ -5,7 +5,7 @@
       "source": "https://learn.g2.com/rss.xml",
       "feed_url": "https://learn.g2.com/rss.xml",
       "title": "",
-      "saved": 16,
+      "saved": 0,
       "method": "feed"
     },
     {
@@ -13,10 +13,9 @@
       "feed_url": "https://company.g2.com/contact",
       "title": "",
       "saved": 0,
-      "method": "none",
-      "error": "parse_failed"
+      "method": "none"
     }
   ],
-  "post_count": 324,
-  "fetched": "2026-08-15T12:11:08Z"
+  "post_count": 327,
+  "fetched": "2026-08-22T20:20:02Z"
 }
