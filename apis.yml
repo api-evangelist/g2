@@ -4,6 +4,17 @@ description: >-
   The G2 API provides programmatic access to G2's product, category, and review data.
   Use the API to integrate G2 data into your workflows and applications.
 type: Index
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: unknown
