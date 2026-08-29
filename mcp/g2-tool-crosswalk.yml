@@ -1,0 +1,199 @@
+generated: '2026-08-29'
+method: derived
+source: >-
+  mcp/g2-mcp.yml (tool names + descriptions published at
+  https://documentation.g2.com/docs/g2-mcp-server) bound against
+  openapi/g2-api-v2-openapi.yaml operationIds
+provider: G2
+providerId: g2
+note: >-
+  G2's own MCP documentation points readers at the G2 API reference for "parameter definitions
+  and request details", which is the provider stating that the MCP tools are projections of the
+  v2 REST operations. The live tools/list is OAuth-gated (401 anonymous), so each binding below
+  is by name and published description against a verified operationId, not by a fetched
+  inputSchema. Confidence is set accordingly.
+surfaces:
+  openapi:
+    - file: openapi/g2-api-v2-openapi.yaml
+      title: G2 API
+      version: v2
+      operations: 62
+      gated: false
+    - file: openapi/g2-data-solutions-openapi.yaml
+      title: G2 Data Solutions API
+      version: v2
+      operations: 1
+      gated: false
+    - file: openapi/g2-chatgpt-plugin-openapi.json
+      title: G2.com (ChatGPT plugin)
+      version: v1
+      operations: 2
+      gated: false
+  graphql: none
+  mcp:
+    url: https://mcp.g2.com/mcp
+    gated: true
+    gate: OAuth 2.0 bearer; anonymous tools/list returns 401
+crosswalk:
+  - tool: list_products
+    category: catalog
+    rest: [getProducts]
+    binding: one-to-one
+    confidence: high
+  - tool: show_product
+    category: catalog
+    rest: [getProduct]
+    binding: one-to-one
+    confidence: high
+  - tool: list_my_products
+    category: catalog
+    rest: [getCurrentUserProducts]
+    binding: one-to-one
+    confidence: high
+  - tool: list_categories
+    category: taxonomy
+    rest: [getCategories]
+    binding: one-to-one
+    confidence: high
+  - tool: show_category
+    category: taxonomy
+    rest: [getCategory]
+    binding: one-to-one
+    confidence: high
+  - tool: list_standard_product_reviews
+    category: reviews
+    rest: [getProductReviews]
+    binding: one-to-one
+    confidence: medium
+    note: >-
+      "Standard" distinguishes it from the market-intelligence variant; the v2 spec exposes a
+      single reviews operation whose returned fields vary by entitlement.
+  - tool: list_market_intelligence_product_reviews
+    category: reviews
+    rest: [getProductReviews, getDataSolutionsReviews]
+    binding: composite
+    confidence: medium
+    note: >-
+      Reviews enriched with B2B firmographic data. The Data Solutions API operation
+      (openapi/g2-data-solutions-openapi.yaml) is the published REST surface that returns
+      flattened enriched review attributes; entitlement-gated in both projections.
+  - tool: list_vendors
+    category: catalog
+    rest: [getVendors]
+    binding: one-to-one
+    confidence: high
+  - tool: show_vendor
+    category: catalog
+    rest: [getVendor]
+    binding: one-to-one
+    confidence: high
+  - tool: browse_buyer_intent
+    category: intent
+    rest: [getGlobalBuyerIntentInteractions]
+    binding: one-to-one
+    confidence: high
+  - tool: browse_product_buyer_intent
+    category: intent
+    rest: [getBuyerIntentInteractions]
+    binding: one-to-one
+    confidence: high
+    note: A sandbox twin exists at getSandboxBuyerIntentInteractions.
+  - tool: browse_competitive_intelligence
+    category: intent
+    rest: [getProductCompetitors, getGlobalBuyerIntentInteractions]
+    binding: composite
+    confidence: low
+    note: >-
+      No single REST operation named for competitive intelligence. The published description
+      ("analyze competitor evaluation activity") maps onto the competitors listing joined with
+      buyer-intent interactions; treat the mapping as indicative until authenticated
+      introspection confirms the tool's inputSchema.
+  - tool: show_buyer_intent_dashboard
+    category: intent
+    rest: []
+    binding: none
+    confidence: low
+    note: Dashboard rendering has no public REST equivalent; see mcp_only[].
+  - tool: list_research_boards
+    category: research-boards
+    rest: [listResearchBoards]
+    binding: one-to-one
+    confidence: high
+  - tool: show_research_board
+    category: research-boards
+    rest: [getResearchBoard]
+    binding: one-to-one
+    confidence: high
+  - tool: create_research_board
+    category: research-boards
+    rest: [createResearchBoard]
+    binding: one-to-one
+    confidence: high
+  - tool: update_research_board
+    category: research-boards
+    rest: [updateResearchBoard]
+    binding: one-to-one
+    confidence: high
+  - tool: delete_research_board
+    category: research-boards
+    rest: [deleteResearchBoard]
+    binding: one-to-one
+    confidence: high
+  - tool: list_research_board_products
+    category: research-boards
+    rest: [listResearchBoardProducts]
+    binding: one-to-one
+    confidence: high
+  - tool: add_products_to_research_board
+    category: research-boards
+    rest: [addProductToResearchBoard, batchAddProductsToResearchBoard]
+    binding: composite
+    confidence: high
+    note: Plural tool name maps to the batch_create operation; the singular POST is the one-product path.
+  - tool: remove_products_from_research_board
+    category: research-boards
+    rest: [removeProductFromResearchBoard, batchRemoveProductsFromResearchBoard]
+    binding: composite
+    confidence: high
+mcp_only:
+  - tool: show_buyer_intent_dashboard
+    reason: >-
+      Renders the my.G2 buyer intent dashboard view. No public v2 REST operation returns a
+      dashboard composition; the underlying signals are reachable individually via
+      getGlobalBuyerIntentInteractions and getBuyerIntentInteractions.
+rest_only:
+  - operations: [getSandboxBuyerIntentInteractions]
+    reason: Sandbox twin of the buyer-intent browse; no sandbox tool is exposed over MCP.
+  - operations: [getScreenshots, getScreenshot, getProductScreenshots, getProductVideos, getProductVideoReviews, getProductDownloads, getProductSnippets]
+    reason: Media, snippet and download assets are REST-only; no MCP tools published.
+  - operations: [getCategoryFeatures, getAllCategoryFeatures, getProductFeatures, getAllProductFeatures]
+    reason: Feature taxonomy has no MCP tool.
+  - operations: [createG2ActivateIndustrySearch, getG2ActivateLockedCompanies, getG2ActivateUnlockedCompanies, postG2ActivateUnlockedCompanies, getG2ActivateUnlockedCompany]
+    reason: >-
+      G2 Activate credit-spending surface is REST-only. This is the only credit-consuming
+      write in the contract and it is deliberately absent from the agent surface.
+  - operations: [getOrganizationCreditAccount, getOrganizationCreditDeductions]
+    reason: Credit accounting is REST-only.
+  - operations: [getPartnerDataSubscriptions, createPartnerDataSubscription, deletePartnerDataSubscription]
+    reason: Partner data subscriptions are REST-only.
+  - operations: [getPerformanceAnalyticsActivationStatus, getPerformanceAnalyticsIntegrationHealth, getPerformanceAnalyticsDataQuality, getPerformanceAnalyticsRoiSummary, getPerformanceAnalyticsRoiTrend]
+    reason: CRM performance analytics is REST-only.
+  - operations: [getProductMappings, createProductMapping, updateProductMapping]
+    reason: Product mapping maintenance is REST-only.
+  - operations: [getProductRatings, getGridReports, getProductMedals, getMarketSignalsIndex, getProductDiscussions, getProductIntegrationReviews, getQuestions, getQuestion, getCurrentUser, getCurrentUserProductReview, submitCurrentUserProductReview]
+    reason: >-
+      Ratings, Grid reports, badges, market signals, discussions, questions, the current-user
+      identity call and review submission have no published MCP tools.
+coverage:
+  mcp_tools: 21
+  mcp_tools_bound: 20
+  mcp_only: 1
+  rest_operations: 65
+  rest_operations_bound: 24
+  rest_only_operations: 41
+  bindings_high_confidence: 16
+  bindings_medium_confidence: 2
+  bindings_low_confidence: 2
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

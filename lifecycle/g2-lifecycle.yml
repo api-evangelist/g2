@@ -1,0 +1,59 @@
+generated: '2026-08-29'
+method: searched
+source: >-
+  openapi/g2-api-v2-openapi.yaml, https://documentation.g2.com/docs/developer-portal,
+  https://documentation.g2.com/docs/release-notes-2026
+provider: G2
+providerId: g2
+versioning:
+  style: path
+  current: v2
+  path_prefix: /api/v2
+  spec_version: v2
+  predecessor: >-
+    A v1 surface is implied by the /api/v2 prefix but no v1 contract is published and no
+    migration guide was found.
+deprecation:
+  policy_published: false
+  deprecated_operations: 0
+  evidence:
+    - No operation in either OpenAPI document carries `deprecated: true`.
+    - No Sunset (RFC 8594) or Deprecation header is declared on any response.
+    - No deprecation, sunset or breaking-change policy page was found on documentation.g2.com.
+  note: >-
+    An agent has no programmatic warning that an operation is going away. This is a real gap,
+    not an absence of change — the 2026 release notes show continuous platform change.
+status_page:
+  published: false
+  evidence:
+    - url: https://status.g2.com/
+      status: 403
+      note: >-
+        Resolves to Cloudflare and returns a JS interstitial to every client, including a
+        browser User-Agent. No status content was reachable and no status host is linked from
+        the docs, the developer portal or the API reference.
+    - url: https://g2.statuspage.io/
+      status: 200
+      note: Redirects to /inactive — G2's Atlassian Statuspage is not active.
+  note: >-
+    No StatusPage pointer is emitted. Recording a status page here that no client can read
+    would credit G2 with an operational surface it does not currently serve.
+sla:
+  published: false
+  note: No API uptime or support SLA is published; commitments sit inside the sales contract.
+token_lifecycle:
+  access_token_expiry: 1 year from creation
+  renewal: Manual regeneration in the G2 Developer Portal
+  oauth_refresh: refresh_token grant supported (well-known/g2-openid-configuration.json)
+  source: https://documentation.g2.com/docs/developer-portal
+change_communication:
+  changelog: https://documentation.g2.com/docs/release-notes-2026
+  history: 2021, 2022, 2023, 2024, 2025, 2026 release-note pages
+  cadence: Monthly entries grouped by quarter
+  scope: >-
+    Product release notes for the whole G2 platform. API-specific breaking changes are not
+    called out separately, so the changelog is not a substitute for a deprecation policy.
+  see_also: changelog/g2-changelog.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

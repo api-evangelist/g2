@@ -1,0 +1,89 @@
+generated: '2026-08-29'
+method: searched
+source: >-
+  openapi/g2-api-v2-openapi.yaml, openapi/g2-data-solutions-openapi.yaml,
+  well-known/g2-openid-configuration.json,
+  https://documentation.g2.com/docs/developer-portal
+docs: https://documentation.g2.com/docs/developer-portal
+provider: G2
+providerId: g2
+summary:
+  types: [http, oauth2, openIdConnect]
+  oauth2_flows: [authorizationCode]
+  default_posture: >-
+    Every operation in both specs is protected. Operations declare AccountAPIToken and G2OAuth
+    together, so a caller may present either a Developer Portal account token or an OAuth
+    bearer token.
+schemes:
+  - name: AccountAPIToken
+    type: http
+    scheme: bearer
+    header: 'Authorization: Bearer <token>'
+    issued_at: https://my.g2.com/developers
+    resource_owner: user | organization
+    expiry: One year after creation; regenerate to continue access.
+    permissions: >-
+      Per-endpoint Access selection made at token creation. Endpoints left unselected are not
+      accessible with that token, which is why a 403 here is frequently a token-configuration
+      problem rather than a plan problem.
+    revocation: Managed in the Developer Portal Access Tokens panel.
+    sources: [openapi/g2-api-v2-openapi.yaml, openapi/g2-data-solutions-openapi.yaml]
+  - name: G2OAuth
+    type: oauth2
+    flows:
+      - flow: authorizationCode
+        authorizationUrl: https://www.g2.com/oauth/authorize
+        tokenUrl: https://www.g2.com/oauth/token
+        revocationUrl: https://www.g2.com/oauth/revoke
+        introspectionUrl: https://www.g2.com/oauth/introspect
+        userinfoUrl: https://www.g2.com/oauth/userinfo
+        jwksUri: https://www.g2.com/oauth/discovery/keys
+        pkce: S256
+        refresh_token: supported
+        scopes: see scopes/g2-scopes.yml
+    client_registration:
+      dynamic: false
+      manual: https://my.g2.com/developers
+      confidential_clients: supported
+      redirect_uri_matching: exact
+      note: >-
+        Dynamic Client Registration (RFC 7591) is explicitly unsupported; clients must be
+        pre-registered. The authorization callback returns `code` WITHOUT `state`, which breaks
+        MCP SDK examples that require it.
+    sources: [openapi/g2-api-v2-openapi.yaml, openapi/g2-data-solutions-openapi.yaml]
+  - name: OpenID Connect
+    type: openIdConnect
+    discovery: https://www.g2.com/.well-known/openid-configuration
+    issuer: https://g2.com
+    id_token_alg: RS256
+    subject_types: [pairwise]
+    grant_types: [authorization_code, implicit_oidc, refresh_token]
+    token_endpoint_auth: [client_secret_basic, client_secret_post]
+    file: well-known/g2-openid-configuration.json
+    note: >-
+      Declared as an OIDC provider through discovery rather than as an openIdConnect
+      securityScheme in the OpenAPI; the OpenAPI models the same authorization server as
+      oauth2 + the `openid`/`profile` scopes.
+mcp_authentication:
+  endpoint: https://mcp.g2.com/mcp
+  type: oauth2
+  flow: authorization_code_pkce
+  token_validation: >-
+    The MCP server validates access tokens against G2's introspection endpoint using its own
+    server-side credentials. Cross-application token introspection may need to be enabled on
+    the caller's OAuth app, otherwise a valid OAuth flow still yields 401 from the MCP server.
+  see_also: mcp/g2-mcp.yml
+failure_modes:
+  - status: 401
+    title: Bad Credentials
+    causes: [missing token, malformed token, expired token (1-year account-token life), revoked token]
+  - status: 403
+    title: 'Missing <scope> scope'
+    causes: [OAuth app permission not enabled, scope not requested at authorization time]
+  - status: 403
+    title: Your current plan does not provide access to this resource
+    causes: [subscription entitlement, not authorization]
+    note: Not retryable. See errors/g2-problem-types.yml.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

@@ -1,0 +1,74 @@
+generated: '2026-08-29'
+method: searched
+source: >-
+  npm registry, PyPI, RubyGems, GitHub org https://github.com/g2crowd,
+  https://documentation.g2.com/docs/g2-mcp-server
+provider: G2
+providerId: g2
+description: >-
+  G2 publishes no maintained client SDK on any package registry. The one first-party client
+  library that exists is a Ruby wrapper in G2's own GitHub organization that was last touched
+  in 2019 and was never published to RubyGems.
+official_sdk_count: 0
+packages:
+  - name: g2crowd-ruby
+    language: ruby
+    official: true
+    registry: none
+    repository: https://github.com/g2crowd/g2crowd-ruby
+    description: Ruby wrapper for the G2Crowd API.
+    version: null
+    published: null
+    note: >-
+      First-party — it lives in G2's own GitHub organization (g2crowd). NOT on RubyGems: both
+      `g2crowd` and `g2crowd-ruby` return 404 from the RubyGems API, so there is no registry
+      metadata and no installable release; consumers would have to vendor from git.
+      Last commit 2019-06-12, seven years before the v2 API this repo documents, and it
+      predates the current OAuth surface entirely. This is the strongest published decay
+      signal available for G2: a first-party SDK abandoned two major API generations ago.
+    last_commit: '2019-06-12'
+    archived: false
+registry_probes:
+  - registry: rubygems
+    query: g2crowd
+    status: 404
+  - registry: rubygems
+    query: g2crowd-ruby
+    status: 404
+  - registry: npm
+    query: g2crowd
+    status: 404
+  - registry: npm
+    query: '@g2crowd/api'
+    status: 404
+  - registry: pypi
+    query: g2-api
+    status: 404
+  - registry: pypi
+    query: g2crowd
+    status: 404
+false_positives:
+  note: >-
+    Registry searches for "g2" return unrelated packages that must not be credited to this
+    provider — @antv/g2 (a JavaScript charting grammar by AntV), the `g2` RubyGem (a Goliath/
+    Grape tool by lizhe, last released 2013), and the npm package `g2-api`, which carries no
+    published version. None are G2.com software.
+recommended_clients:
+  note: >-
+    In place of an SDK, G2's own MCP documentation points developers at third-party MCP
+    clients — FastMCP (Python) and the Model Context Protocol TypeScript SDK — with worked
+    examples. These are not G2 packages and are not recorded as official.
+  referenced:
+    - name: fastmcp
+      language: python
+      official: false
+      registry: pypi
+      source: https://documentation.g2.com/docs/g2-mcp-server
+    - name: '@modelcontextprotocol/client'
+      language: typescript
+      official: false
+      registry: npm
+      source: https://documentation.g2.com/docs/g2-mcp-server
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

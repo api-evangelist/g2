@@ -4,145 +4,131 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: G2
 providerId: g2
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
-tags:
-  - B2B
-  - Software Discovery
-  - Software Reviews
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
+modified: '2026-08-29'
+generated: '2026-08-29'
+method: searched
+source: https://sell.g2.com/plans
+description: >-
+  G2 publishes a four-tier seller plan ladder with real list pricing on one paid tier. This
+  file replaces a 2026-05-04 scaffold that invented API-request quotas and per-tier rate
+  limits G2 has never published.
+note: >-
+  PREVIOUS VERSION WAS A SCAFFOLD. G2 sells seats and marketing solutions, NOT metered API
+  calls — there is no published API pricing, no request quota per tier, and no self-serve API
+  plan. API and MCP access are entitlements attached to a subscription; the documentation
+  states repeatedly that "access to G2 data depends on your G2 subscription and entitlements".
+  The invented g2-free / g2-pro request quotas have been removed.
+api_pricing_published: false
+api_pricing_note: >-
+  No page on sell.g2.com or documentation.g2.com attaches a price to API calls, an API tier,
+  or MCP access. Buyers are directed to "Contact sales" and to G2 Technical Consulting for
+  API implementations.
+plan_count: 4
 plans:
   - id: g2-free
     name: Free
-    type: freemium
-    description: Free entry tier for the G2 API surface. Intended for evaluation, prototyping, and low-volume
-      integrations. Real limits and pricing must be reconciled with the provider's published plan documentation.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 1000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://data.g2.com
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 10
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://data.g2.com
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
+    type: free
+    price: '0.00'
+    currency: USD
+    billing_period: none
+    description: >-
+      Claim a product profile, collect reviews and syndicate them. G2 states access to the
+      basic profile "will always be free".
     elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: G2 API
-  - id: g2-pro
+      - name: 3 Users / Profile Admins
+      - name: Basic Profile
+      - name: Standard Seller Page
+      - name: "'Users Love Us' Badge License"
+      - name: Basic Review Collection and Syndication
+  - id: g2-starter
+    name: Starter
+    type: paid
+    price: '299.00'
+    currency: USD
+    billing_period: month
+    self_serve: true
+    contract: none
+    description: >-
+      For small businesses (defined by G2 as 1-100 employees). No contract, cancel anytime.
+    alternate_pricing:
+      - price: '2999.00'
+        currency: USD
+        billing_period: year
+        note: 16% discount vs monthly; year 1 pricing only.
+      - price: '599.00'
+        currency: USD
+        billing_period: month
+        note: Year 2 renewal price stated on the pricing page.
+      - price: '6000.00'
+        currency: USD
+        billing_period: year
+        note: Year 2 renewal price stated on the pricing page.
+    elements:
+      - name: Everything in Free
+      - name: Single Profile Review Collection / G2 Managed Campaigns
+      - name: $100 Gift Card Review Credits
+      - name: Custom CTAs
+      - name: Upgraded Profile
+      - name: Branded Banners + Review Campaigns
+      - name: Report, Milestone, and Annual Badge License
+  - id: g2-professional
     name: Professional
     type: paid
-    description: Production tier for G2. Provides higher quotas, priority support, and access to the broader
-      API portfolio. Pricing placeholder; align with the provider's pricing page.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 100000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://data.g2.com
-        unit: 1
-        price: TBD
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://data.g2.com
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
-        type: metered
-        metric: requests
-        limit: -1
-        timeFrame: month
-        geo: global
-        domains:
-          - https://data.g2.com
-        unit: 1000
-        price: TBD
-        userMultiplied: false
+    price: null
+    currency: USD
+    billing_period: unpublished
+    self_serve: false
+    description: Contact sales. No list price published.
     elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
-      - name: G2 API
+      - name: Everything in Starter
+      - name: 10 Users / Profile Admins
+      - name: 3 video reviews
+      - name: $500 Gift Card Review Credits
+      - name: Single Product Custom CTAs
+      - name: Review Management
+      - name: Profile Visitor Data
+      - name: Premium Seller Pages
+      - name: Expanded Support + Account Settings
   - id: g2-enterprise
     name: Enterprise
-    type: enterprise
-    description: Custom-negotiated tier for G2. Includes dedicated capacity, contractual SLAs, security
-      review, data residency options, and named technical account management.
-    entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: -1
-        timeFrame: month
-        geo: configurable
-        domains:
-          - https://data.g2.com
-        unit: 1
-        price: custom
-        userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
-        domains:
-          - https://data.g2.com
-        unit: 1
-        price: custom
-        userMultiplied: false
+    type: paid
+    price: null
+    currency: USD
+    billing_period: unpublished
+    self_serve: false
+    description: Contact sales. No list price published.
     elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
-      - name: G2 API
+      - name: Everything in Professional
+      - name: Unlimited Users / Profile Admins
+      - name: 5 video reviews
+      - name: Multi-Profile Review Collection
+      - name: $1000 Gift Card Review Credits
+      - name: Multi-Product Custom CTAs
+      - name: Market Intelligence
+      - name: Solutions Pages (Enterprise profiles only)
+      - name: Multi-Product Reviews (Enterprise profiles only, on Solutions pages)
+add_ons:
+  note: All add-ons are quoted by sales; no list prices are published.
+  items:
+    - name: G2 Content Subscription
+      family: G2 Demand
+    - name: G2 Buyer Intent
+      family: G2 Demand
+      note: Gates the buyer-intent API and MCP surfaces.
+    - name: G2 Clicks
+      family: G2 Ads
+      model: pay-per-click, custom monthly budget, cancel anytime
+    - name: G2 Ads Paid Promotions
+      family: G2 Ads
+      model: quarterly or annual buyout, max three spots per placement
+    - name: G2 Data Solutions
+      family: G2 Data
+      note: Backs the G2 Data Solutions API (openapi/g2-data-solutions-openapi.yaml).
+credits:
+  note: >-
+    G2 Activate consumes a credit balance rather than an API quota. The contract exposes the
+    balance and deductions directly — getOrganizationCreditAccount and
+    getOrganizationCreditDeductions — and postG2ActivateUnlockedCompanies spends credits.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

@@ -1,0 +1,122 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the G2 API (v2)
+  version: 1.0.0
+extends: ../openapi/g2-api-v2-openapi.yaml
+x-provenance:
+  generated: '2026-08-29'
+  method: generated
+  source: >-
+    Derived from artifacts in this repo: conventions/g2-conventions.yml,
+    errors/g2-problem-types.yml, rate-limits/g2-rate-limits.yml, sandbox/g2-sandbox.yml,
+    mcp/g2-tool-crosswalk.yml. The original specification at
+    https://data.g2.com/openapi/v2.yaml is never mutated.
+  note: >-
+    Everything asserted here is restated from G2's own contract or documentation. No behavior
+    is invented.
+actions:
+  - target: $.info
+    description: Record contact, licence-free status and the missing runtime facts the contract omits.
+    update:
+      x-api-evangelist-enriched: true
+      x-provider: G2
+      x-docs: https://documentation.g2.com/docs/g2-api
+      x-developer-portal: https://my.g2.com/developers
+      x-api-reference: https://data.g2.com/api/v2/docs/index.html
+      x-media-type: application/vnd.api+json
+      x-standard: JSON:API 1.0
+      x-error-format: jsonapi-errors
+      x-rfc9457: false
+      x-rate-limit:
+        limit: 100
+        window: second
+        scope: source-ip
+        enforced_by: Cloudflare
+        block_on_exhaustion_seconds: 60
+        response_headers: none
+      x-pagination:
+        style: cursor
+        size_param: 'page[size]'
+        default: 25
+        max: 250
+        forward: 'page[after]'
+        backward: 'page[before]'
+      x-incremental-sync:
+        filters: ['filter[updated_at_gt]', 'filter[updated_at_lt]', 'filter[created_at_gt]', 'filter[created_at_lt]']
+      x-deprecation-policy: none published
+      x-status-page: none published
+      x-token-expiry: access tokens expire one year after creation
+  - target: $.servers
+    description: Note that the single server is templated on a defaultHost variable.
+    update:
+      - url: 'https://{defaultHost}'
+        description: >-
+          Templated server; defaultHost defaults to data.g2.com, the production API host.
+        variables:
+          defaultHost:
+            default: data.g2.com
+  - target: $.paths['/api/sandbox/products/{subject_product_id}/buyer_intent'].get
+    description: Flag the only sandbox operation in the contract and bind it to its live twin.
+    update:
+      x-environment: sandbox
+      x-live-twin: getBuyerIntentInteractions
+      x-billable: false
+  - target: $.paths['/api/v2/products/{product_id}/g2_activate/unlocked_companies'].post
+    description: >-
+      Flag the one billable, irreversible write in the contract and record the replay guarantee
+      and partial-failure behavior G2 states in its own operation description.
+    update:
+      x-billable: true
+      x-consequence: irreversible
+      x-reversal: none
+      x-idempotent: true
+      x-idempotency-mechanism: natural key (opaque `sig` token)
+      x-idempotency-replay-cost: 0 credits
+      x-batch-cap: 25
+      x-partial-failure: 'Always returns 200; per-sig failures appear in meta.skipped[]'
+      x-rehearsal: getG2ActivateLockedCompanies
+      x-precheck: getOrganizationCreditAccount
+      x-agent-guidance: >-
+        Confirm the credit balance and rehearse against locked_companies before calling. There
+        is no refund, void or re-lock operation.
+  - target: $.paths['/api/v2/users/me/research_boards'].post
+    description: Record that create is reversible via delete, with no stated window.
+    update:
+      x-reversal: deleteResearchBoard
+      x-reversal-window: not stated
+      x-idempotent: false
+  - target: $.paths['/api/v2/users/me/research_boards/{uuid}'].patch
+    description: Record that update is a lossy overwrite with no restore path.
+    update:
+      x-reversal: none
+      x-consequence: overwrite
+      x-agent-guidance: >-
+        Read the board with getResearchBoard and retain the prior state before patching; there
+        is no version history or restore operation.
+  - target: $.paths['/api/v2/users/me/products/{product_id}/review'].post
+    description: Record upsert semantics.
+    update:
+      x-idempotent: upsert
+      x-note: One review per user per product; replay updates rather than duplicating.
+      x-reversal: none
+  - target: $.components.schemas.Errors
+    description: Name the envelope for agents that must branch on it.
+    update:
+      x-error-envelope: 'JSON:API errors array'
+      x-machine-readable-code: false
+      x-discriminator: 'HTTP status + errors[].title string'
+      x-catalog: ../errors/g2-problem-types.yml
+  - target: $.components.securitySchemes.G2OAuth
+    description: Record the registration constraints that are not expressible in OpenAPI.
+    update:
+      x-dynamic-client-registration: false
+      x-registration: https://my.g2.com/developers
+      x-pkce: S256
+      x-callback-returns-state: false
+      x-scope-reference: ../scopes/g2-scopes.yml
+  - target: $.components.securitySchemes.AccountAPIToken
+    description: Record token lifetime and the per-endpoint permission grid.
+    update:
+      x-issued-at: https://my.g2.com/developers
+      x-expiry: 1 year from creation
+      x-permission-model: per-endpoint Access selection at token creation

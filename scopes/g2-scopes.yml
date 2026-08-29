@@ -1,0 +1,114 @@
+generated: '2026-08-29'
+method: searched
+source: >-
+  openapi/g2-api-v2-openapi.yaml (components.securitySchemes.G2OAuth.flows.authorizationCode.scopes
+  and per-operation security requirements), enriched from
+  https://documentation.g2.com/docs/g2-mcp-server and
+  https://documentation.g2.com/docs/developer-portal
+docs: https://documentation.g2.com/docs/g2-mcp-server#connect-directly-to-the-g2-mcp-server
+provider: G2
+providerId: g2
+note: >-
+  G2 publishes NO single consolidated scopes reference. Two partial lists exist and they do
+  not agree: the OpenAPI securityScheme declares six scopes, while the MCP documentation's
+  scope table names eight, four of which (products.read, products.reviews.read, vendors.read,
+  buyer_intent.read, research_boards.read/write) never appear in the securityScheme. A third
+  set is only discoverable from per-operation 403 error titles in the spec
+  (performance_analytics.read, g2_activate.read, g2_activate.write) and from operation
+  descriptions ("Requires `products.read` scope"). This file is the union, with the source of
+  each scope recorded — that divergence is itself the finding.
+schemes:
+  - name: G2OAuth
+    type: oauth2
+    flow: authorizationCode
+    pkce: S256
+    authorizationUrl: https://www.g2.com/oauth/authorize
+    tokenUrl: https://www.g2.com/oauth/token
+    dynamic_client_registration: false
+    registration: https://my.g2.com/developers
+  - name: AccountAPIToken
+    type: http
+    scheme: bearer
+    note: >-
+      Account tokens are not scoped by OAuth scope strings. They carry a per-endpoint
+      Access permission grid selected at token creation in the Developer Portal.
+scopes:
+  - scope: openid
+    description: OpenID Connect default scope. Required for OAuth authentication.
+    required: true
+    sources: [openapi, mcp-docs, openid-configuration]
+  - scope: profile
+    description: Profile information on the current user. Required for OAuth authentication.
+    required: true
+    sources: [openapi, mcp-docs, openid-configuration]
+  - scope: products.read
+    description: Read product catalog data.
+    sources: [mcp-docs, openapi-operation-descriptions]
+    note: Named in operation descriptions ("Requires `products.read` scope") but absent from the securityScheme scope map.
+  - scope: products.reviews.read
+    description: Read product reviews.
+    sources: [mcp-docs]
+  - scope: vendors.read
+    description: Read vendor data.
+    sources: [mcp-docs]
+  - scope: buyer_intent.read
+    description: Read buyer intent signals.
+    sources: [mcp-docs]
+  - scope: research_boards.read
+    description: Read research boards.
+    sources: [mcp-docs]
+  - scope: research_boards.write
+    description: Create, update, and delete research boards.
+    sources: [mcp-docs]
+    write: true
+  - scope: data_subscriptions.read
+    description: Read Data Subscription records.
+    sources: [openapi]
+  - scope: data_subscriptions.read_write
+    description: Modify Data Subscription records.
+    sources: [openapi]
+    write: true
+  - scope: data_subscriptions.write
+    description: Write Data Subscription records.
+    sources: [openapi]
+    write: true
+    note: Appears in per-operation security requirements but not in the securityScheme scope map.
+  - scope: performance_analytics.read
+    description: Read Performance Analytics data.
+    sources: [openapi]
+    note: Enforced with the 403 title "Missing performance_analytics.read scope" on 5 operations.
+  - scope: 'partner:partner-id.read'
+    description: Access records created in the Partner realm.
+    sources: [openapi]
+    note: Templated — substitute the caller's partner id.
+  - scope: g2_activate.read
+    description: Read G2 Activate locked/unlocked company records.
+    sources: [openapi-operation-security, openapi-error-titles]
+    note: Enforced with the 403 title "Missing g2_activate.read scope".
+  - scope: g2_activate.write
+    description: Spend credits to unlock G2 Activate companies.
+    sources: [openapi-operation-security, openapi-error-titles]
+    write: true
+    billable: true
+    note: >-
+      The only scope in the contract that authorizes spending money. Enforced with the 403
+      title "Missing g2_activate.write scope".
+  - scope: snippets
+    description: Access review snippets.
+    sources: [openapi]
+  - scope: openid_admin
+    description: Administrative OpenID scope.
+    sources: [openid-configuration]
+  - scope: profile_admin
+    description: Administrative profile scope.
+    sources: [openid-configuration]
+scope_count: 18
+operational_notes:
+  - >-
+    Requested scopes must match the Read/Write Permissions enabled on the OAuth app in the
+    Developer Portal, or the token request fails with "requested scope is invalid, unknown, or
+    malformed". G2's documented remedy is to add scopes back one at a time.
+  - Request only the scopes an application requires; permissions are selected per endpoint at app registration.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

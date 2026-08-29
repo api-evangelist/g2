@@ -1,0 +1,87 @@
+generated: '2026-08-29'
+method: searched
+source: https://documentation.g2.com/docs/release-notes-2026
+provider: G2
+providerId: g2
+name: G2 Release Notes
+url: https://documentation.g2.com/docs/release-notes-2026
+scheme: calendar
+cadence: monthly entries grouped by quarter
+history:
+  - year: 2026
+    url: https://documentation.g2.com/docs/release-notes-2026
+  - year: 2025
+    url: https://documentation.g2.com/docs/release-notes-2025
+  - year: 2024
+    url: https://documentation.g2.com/docs/release-notes
+  - year: 2023
+    url: https://documentation.g2.com/docs/2023-release-notes
+  - year: 2022
+    url: https://documentation.g2.com/docs/2022-release-notes
+  - year: 2021
+    url: https://documentation.g2.com/docs/2021-release-notes
+current_version: v2
+last_updated: '2026-07-27'
+scope: >-
+  Platform-wide product release notes. Entries are feature announcements, not versioned API
+  changes — no entry names an endpoint, a breaking change or a deprecation. Treat this as the
+  provider's change-communication surface, not as an API changelog.
+breaking_changes_called_out: false
+entries:
+  - period: Q2 2026 — July
+    breaking: false
+    additions:
+      - AI Enabled and AI Verified product designations on profiles
+      - Buyer Intent details panel gains a time-series graph across G2, Capterra, Software Advice and GetApp with 7/30/90/365-day filters
+      - 'MCP partner expansion: G2 data available through Claude and Profound'
+      - '"Used by" featured-company logos on paid product profiles'
+      - Milestone-based review journey in my.G2
+      - Gmail Review Sender
+      - Review Tracker with rejection reasons
+      - LinkedIn review campaigns via LinkedIn Campaign Manager
+    agent_relevant:
+      - MCP partner expansion (Claude, Profound)
+  - period: Q2 2026 — June
+    breaking: false
+    additions:
+      - Review Rally team review competitions
+      - Buyer Intent Studio audience creation and targeting
+      - Guided one-question-at-a-time review experience
+      - Review Optimizer AI next-best-action recommendations
+      - Buyer Intent dashboard redesign with a 10-signal Activity Feed
+      - Buyer Intent expansion
+      - MCP integrations
+      - BigQuery and Databricks data connectors
+      - AI Blueprints
+    agent_relevant:
+      - MCP integrations
+      - BigQuery and Databricks data connectors
+  - period: Q2 2026 — May
+    breaking: false
+    additions:
+      - Updated Buyer Intent dashboard
+      - Audience Builder (beta)
+      - New user welcome experience, activation checklist, invite teammate
+      - AI-powered review recommendations
+      - Primary category updates in my.G2
+      - Plain-text profile editing
+      - G2 MCP for HubSpot
+      - Conversion tracking for G2 Clicks ads
+    agent_relevant:
+      - G2 MCP for HubSpot
+  - period: Q1 2026
+    breaking: false
+    additions:
+      - Structured FAQs and guided discussion prompts
+      - Focused feature list
+      - SaaS spend and pricing data
+      - Verified reviews with LinkedIn
+      - Competitive pulse
+      - G2 MCP integration for Claude
+      - Benchmark performance for AI agents
+    agent_relevant:
+      - G2 MCP integration for Claude
+      - Benchmark performance for AI agents
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

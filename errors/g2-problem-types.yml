@@ -1,0 +1,112 @@
+generated: '2026-08-29'
+method: derived
+source: openapi/g2-api-v2-openapi.yaml, openapi/g2-data-solutions-openapi.yaml
+provider: G2
+providerId: g2
+format: jsonapi-errors
+media_type: application/vnd.api+json
+rfc9457: false
+note: >-
+  G2 does NOT use RFC 9457 problem+json. Errors are JSON:API error objects. The envelope is
+  a top-level `errors` array whose members carry `status` (a string), `title` (the human
+  message), and nullable `links` and `source` objects (components.schemas.Errors /
+  components.schemas.http_error). There is no machine-readable error `code` field and no
+  `type` URI, so agents must branch on HTTP status plus `title` string matching — the single
+  weakest point of an otherwise well-specified contract.
+envelope:
+  shape: |
+    {
+      "errors": [
+        { "status": "403", "title": "You do not have access to that resource", "links": null, "source": null }
+      ]
+    }
+  fields:
+    - name: errors[].status
+      type: string
+      description: HTTP status repeated as a string.
+    - name: errors[].title
+      type: string
+      description: Human-readable message. The only discriminator available; no stable code.
+    - name: errors[].links
+      type: object
+      nullable: true
+    - name: errors[].source
+      type: object
+      nullable: true
+problem_types:
+  - status: 400
+    title: 'Invalid parameter: "<param>" contains unknown items'
+    occurrences: 26
+    meaning: A sparse-fieldset, include or filter parameter named an unknown member.
+    remediation: Check `include` / `fields[<type>]` values against the resource's documented relationships.
+  - status: 400
+    title: 'sort: must be one of: <allowed values>'
+    occurrences: 2
+    meaning: A disallowed sort key was supplied.
+    remediation: Use only the sort values enumerated in the operation's sort parameter description.
+  - status: 400
+    title: 'query: size cannot be less than 2'
+    occurrences: 1
+    meaning: Full-text search term below the minimum length.
+    remediation: Send at least two characters in filter[query].
+  - status: 400
+    title: 'integration_type: is not a supported provider'
+    occurrences: 2
+    meaning: Performance Analytics called with an unsupported CRM provider.
+    remediation: Use a supported integration_type path value.
+  - status: 400
+    title: 'sigs: must include at least one sig'
+    occurrences: 1
+    meaning: G2 Activate unlock called with missing, empty or blank sig entries, or over the 25-item batch cap.
+    remediation: Send 1-25 non-blank opaque sig tokens taken from the locked_companies response.
+  - status: 401
+    title: Bad Credentials
+    occurrences: 49
+    meaning: Missing, malformed, expired or revoked bearer token. Access tokens expire one year after creation.
+    remediation: Regenerate the access token in the G2 Developer Portal, or refresh the OAuth access token.
+  - status: 403
+    title: You do not have access to that resource
+    occurrences: 12
+    meaning: Authenticated but not authorized for this record.
+    remediation: Confirm the token's resource owner (user vs organization) covers the product/vendor being addressed.
+  - status: 403
+    title: >-
+      Your current plan does not provide access to this resource. To unlock it, explore your
+      upgrade options.
+    occurrences: 11
+    meaning: Entitlement gate, not a permission gate. The subscription tier does not include this data.
+    remediation: >-
+      A commercial upgrade, not a code fix. Agents must NOT retry this — it will never succeed
+      on the current subscription.
+  - status: 403
+    title: 'Missing <scope> scope'
+    occurrences: 9
+    meaning: >-
+      The OAuth app or token lacks a required scope (performance_analytics.read,
+      g2_activate.read, g2_activate.write observed in the spec).
+    remediation: Enable the matching Read/Write permission on the OAuth app or token, then re-authorize.
+  - status: 404
+    title: Not Found
+    occurrences: 31
+    meaning: >-
+      Unknown id, product id, category, organization or review. Also returned when the actor
+      lacks the intent_driven_leads component on a product, and when a company exists but has
+      no unlock for this product — an authorization outcome surfaced as a 404.
+    remediation: Verify the UUID; do not assume 404 means "deleted" on the G2 Activate paths.
+  - status: 503
+    title: AI industry matcher is temporarily unavailable. Retry with backoff.
+    occurrences: 1
+    meaning: The LLM/embedding backend behind createG2ActivateIndustrySearch failed.
+    remediation: Retry with exponential backoff. This is the only 5xx documented in the contract.
+partial_failure:
+  operation: postG2ActivateUnlockedCompanies
+  note: >-
+    Always returns 200. Per-sig failures land in `meta.skipped[]` rather than as HTTP errors,
+    so a 200 does not mean every requested company was unlocked. Agents must read meta.skipped[].
+rate_limit_errors:
+  note: >-
+    Rate-limit rejection is handled at the Cloudflare edge above the application, so no 429 is
+    declared in either spec. See rate-limits/g2-rate-limits.yml.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

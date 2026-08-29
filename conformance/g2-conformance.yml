@@ -1,0 +1,133 @@
+generated: '2026-08-29'
+method: searched
+source: >-
+  openapi/g2-api-v2-openapi.yaml, well-known/g2-openid-configuration.json,
+  https://trust.g2.com/, https://documentation.g2.com/docs/g2-mcp-server
+provider: G2
+providerId: g2
+description: >-
+  Cross-cutting and industry standard conformance for the G2 API surface, asserted from the
+  published contract and the provider's own discovery documents rather than from marketing
+  claims.
+standards:
+  - id: json:api
+    name: JSON:API 1.0
+    conforms: true
+    evidence:
+      - >-
+        Every response and error in openapi/g2-api-v2-openapi.yaml is served as
+        application/vnd.api+json, the JSON:API media type.
+      - >-
+        Documents use the JSON:API envelope: top-level `data` with `id`/`type`/`attributes`/
+        `relationships`, a sibling `included` compound-document array (components.schemas.included),
+        and an `errors` array of {status,title,links,source} members (components.schemas.Errors) —
+        the JSON:API error object shape, not RFC 9457.
+      - >-
+        JSON:API query conventions are used throughout: `page[size]`, `page[after]`, `page[before]`,
+        `fields[<type>]` sparse fieldsets on 8 resource types, `filter[...]` and `sort`.
+      - >-
+        G2's engineering org maintains a fork of jsonapi-resources (the Rails JSON:API library)
+        at https://github.com/g2crowd/jsonapi-resources.
+  - id: oauth2
+    name: OAuth 2.0 Authorization Code
+    conforms: true
+    evidence:
+      - >-
+        components.securitySchemes.G2OAuth declares an authorizationCode flow with
+        authorizationUrl https://www.g2.com/oauth/authorize and tokenUrl
+        https://www.g2.com/oauth/token.
+      - PKCE (S256) advertised in the discovery document; MCP clients are documented to use Authorization Code with PKCE.
+      - Dynamic Client Registration (RFC 7591) is explicitly NOT supported — the docs instruct pre-registration in the Developer Dashboard.
+  - id: oidc
+    name: OpenID Connect Core + Discovery
+    conforms: true
+    evidence:
+      - https://www.g2.com/.well-known/openid-configuration returned 200 (well-known/g2-openid-configuration.json).
+      - Advertises issuer https://g2.com, userinfo, jwks_uri, id_token RS256, pairwise subject types, and the `openid`/`profile` scopes the OpenAPI also declares.
+  - id: rfc8414
+    name: OAuth 2.0 Authorization Server Metadata
+    conforms: true
+    evidence:
+      - https://www.g2.com/.well-known/oauth-authorization-server returned 200 with the same metadata document.
+  - id: rfc7662
+    name: OAuth 2.0 Token Introspection
+    conforms: true
+    evidence:
+      - introspection_endpoint https://www.g2.com/oauth/introspect published in the discovery document; the MCP server validates access tokens against it.
+  - id: rfc7009
+    name: OAuth 2.0 Token Revocation
+    conforms: true
+    evidence:
+      - revocation_endpoint https://www.g2.com/oauth/revoke published in the discovery document.
+  - id: pagination
+    name: Cursor pagination
+    conforms: true
+    evidence:
+      - components.schemas.cursor_pagination exposes next/prev/self links; `page[after]`/`page[before]` cursors appear on 28 operations and `page[size]` on 29 (default 25, max 250).
+  - id: rfc9457
+    name: RFC 9457 Problem Details
+    conforms: false
+    evidence:
+      - Errors are JSON:API error objects under application/vnd.api+json; no application/problem+json media type appears anywhere in either spec.
+  - id: idempotency
+    name: Idempotent write semantics
+    conforms: partial
+    evidence:
+      - >-
+        No Idempotency-Key header is defined on any operation. One write documents replay-safe
+        semantics in the contract itself — postG2ActivateUnlockedCompanies states "Idempotent:
+        replaying an already-unlocked sig costs 0 credits and returns the existing record".
+      - See conventions/g2-conventions.yml for the full treatment.
+  - id: mcp
+    name: Model Context Protocol
+    conforms: true
+    evidence:
+      - Remote MCP server at https://mcp.g2.com/mcp; anonymous tools/list returned 401, confirming a live OAuth-protected MCP endpoint.
+      - 21 tools published at https://documentation.g2.com/docs/g2-mcp-server.
+  - id: rfc9728
+    name: OAuth 2.0 Protected Resource Metadata
+    conforms: false
+    evidence:
+      - https://mcp.g2.com/.well-known/oauth-protected-resource returned 404; MCP clients cannot discover the authorization server from the resource itself.
+  - id: a2a
+    name: A2A Agent Card
+    conforms: false
+    evidence:
+      - /.well-known/agent-card.json and /.well-known/agent.json returned 404 on www.g2.com, data.g2.com, documentation.g2.com and mcp.g2.com.
+  - id: scim
+    name: SCIM
+    conforms: false
+    evidence:
+      - No SCIM schema URNs or /scim/v2 surface in either spec; user provisioning is not part of the public API.
+  - id: odata
+    name: OData
+    conforms: false
+    evidence:
+      - No $metadata surface or OData query options; the query grammar is JSON:API.
+domain_standard:
+  applicable: false
+  note: >-
+    G2's market — a B2B software review marketplace and buyer-intent data provider — has no
+    recognised interoperability standard for its own domain (no equivalent of FHIR, OpenRTB,
+    OneRoster or ISO 20022 for software reviews or intent signals). REWARD-ONLY check, left
+    empty rather than filled with a near-miss. The nearest thing to a domain standard in the
+    contract is JSON:API, which is recorded above as a cross-cutting standard.
+compliance:
+  source: https://trust.g2.com/
+  probed: '2026-08-29'
+  http_status: 200
+  trust_center: https://trust.g2.com/
+  trust_center_platform: SecurityPal AI
+  profile_published: '2026-04-16'
+  certifications:
+    - SOC 2 Type 2
+    - SOC 3
+    - CSA STAR
+  privacy_regimes:
+    - GDPR
+    - CCPA
+    - CPRA
+    - Privacy Shield Verified
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

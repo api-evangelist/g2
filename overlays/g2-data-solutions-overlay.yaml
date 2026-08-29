@@ -1,0 +1,39 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the G2 Data Solutions API
+  version: 1.0.0
+extends: ../openapi/g2-data-solutions-openapi.yaml
+x-provenance:
+  generated: '2026-08-29'
+  method: generated
+  source: >-
+    Derived from artifacts in this repo. The original specification at
+    https://data.g2.com/openapi/data_solutions.yaml is never mutated.
+actions:
+  - target: $.info
+    description: Record the shared runtime facts and the commercial gate on this surface.
+    update:
+      x-api-evangelist-enriched: true
+      x-provider: G2
+      x-api-reference: https://data.g2.com/api/v2/docs/index.html
+      x-media-type: application/vnd.api+json
+      x-standard: JSON:API 1.0
+      x-error-format: jsonapi-errors
+      x-rate-limit:
+        limit: 100
+        window: second
+        scope: source-ip
+        enforced_by: Cloudflare
+        block_on_exhaustion_seconds: 60
+        response_headers: none
+      x-entitlement: >-
+        Gated behind the G2 Data Solutions add-on; see plans/g2-plans-pricing.yml. A 403 with
+        the title "Your current plan does not provide access to this resource" is a commercial
+        outcome and must not be retried.
+      x-read-only: true
+  - target: $.paths['/api/v2/data_solutions/reviews'].get
+    description: Bind the single operation to the MCP tool that projects it.
+    update:
+      x-mcp-tool: list_market_intelligence_product_reviews
+      x-crosswalk: ../mcp/g2-tool-crosswalk.yml
+      x-shape: flat attribute structure (denormalised vs the JSON:API reviews resource)

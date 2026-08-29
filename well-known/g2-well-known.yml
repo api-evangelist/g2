@@ -1,0 +1,85 @@
+generated: '2026-08-29'
+method: probed
+source: direct HTTPS probes of /.well-known/* on every G2 host in apis.yml and in openapi servers[]
+provider: G2
+providerId: g2
+note: >-
+  Three real documents are served, all on www.g2.com: an OpenID Connect discovery document
+  (also mirrored at the RFC 8414 oauth-authorization-server path) and a ChatGPT plugin
+  manifest. The API host data.g2.com, the docs host documentation.g2.com and the MCP host
+  mcp.g2.com serve nothing at /.well-known/*. No security.txt is served on any host, so no
+  SecurityTxt pointer is emitted. All 404 bodies were HTML/plain-text "Not Found" shells,
+  not documents.
+hosts:
+  - host: www.g2.com
+    documents:
+      - path: /.well-known/openid-configuration
+        status: 200
+        file: g2-openid-configuration.json
+        content_type: application/json
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        file: g2-oauth-authorization-server.json
+        content_type: application/json
+        note: byte-identical to the openid-configuration document
+      - path: /.well-known/ai-plugin.json
+        status: 200
+        file: g2-ai-plugin.json
+        content_type: application/json
+        note: >-
+          ChatGPT plugin manifest; points at https://www.g2.com/openai.json, a real 2-operation
+          OpenAPI 3.0.1 document saved to openapi/g2-chatgpt-plugin-openapi.json
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: data.g2.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: documentation.g2.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+  - host: mcp.g2.com
+    documents:
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+        note: >-
+          The MCP server is OAuth-protected but does not publish RFC 8414 / RFC 9728 metadata
+          at its own host; clients are documented to use the www.g2.com authorization server.
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+      - path: /.well-known/mcp.json
+        status: 404
+  - host: company.g2.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

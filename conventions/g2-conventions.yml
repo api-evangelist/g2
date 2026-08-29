@@ -1,0 +1,203 @@
+generated: '2026-08-29'
+method: searched
+source: >-
+  openapi/g2-api-v2-openapi.yaml, https://documentation.g2.com/docs/developer-portal,
+  https://documentation.g2.com/docs/g2-mcp-server
+provider: G2
+providerId: g2
+description: >-
+  Cross-cutting runtime semantics for the G2 API: how to authenticate, page, filter, shape,
+  interpret errors, and — critically — what can and cannot be undone.
+authentication:
+  styles:
+    - name: Account API token
+      scheme: http bearer
+      header: 'Authorization: Bearer <token>'
+      issued_at: https://my.g2.com/developers
+      resource_owner: user | organization
+      expiry: One year after creation; must be regenerated for continued access.
+      per_endpoint_permissions: >-
+        Tokens carry an explicit per-endpoint Access selection. Endpoints without a selection
+        are not accessible with the token, so a 403 is a token-configuration outcome as often
+        as a plan outcome.
+    - name: OAuth 2.0 authorization code
+      scheme: oauth2
+      pkce: S256 supported
+      dynamic_client_registration: false
+      authorize: https://www.g2.com/oauth/authorize
+      token: https://www.g2.com/oauth/token
+      revoke: https://www.g2.com/oauth/revoke
+      introspect: https://www.g2.com/oauth/introspect
+      discovery: https://www.g2.com/.well-known/openid-configuration
+      note: The callback returns `code` without `state`; clients that require `state` must be adjusted.
+  see_also: authentication/g2-authentication.yml, scopes/g2-scopes.yml
+pagination:
+  style: cursor
+  params:
+    size: 'page[size]'
+    forward: 'page[after]'
+    backward: 'page[before]'
+  default_page_size: 25
+  max_page_size: 250
+  response_fields:
+    schema: components.schemas.cursor_pagination
+    fields: [next, prev, self]
+  coverage: 'page[size] on 29 operations; page[after]/page[before] on 28.'
+  note: Opaque cursors. There is no offset/limit or page-number mode and no total-count field.
+filtering:
+  style: 'JSON:API filter family'
+  patterns:
+    - 'filter[<attr>_eq] — exact match'
+    - 'filter[<attr>_cont] — substring match'
+    - 'filter[<attr>_gt] / filter[<attr>_lt] — created_at / updated_at range windows'
+    - 'filter[<attr>_gteq] — minimum threshold (e.g. filter[review_count_gteq])'
+    - 'filter[<attr>][] — repeatable array form for multi-value id/slug/url filters'
+    - 'filter[query] — full-text search, minimum 2 characters'
+  incremental_sync: >-
+    filter[updated_at_gt] / filter[updated_at_lt] appear on 14 operations and
+    filter[created_at_gt] / filter[created_at_lt] on 13 — the supported way to poll for change.
+sparse_fieldsets:
+  supported: true
+  param: 'fields[<type>]'
+  types: [products, product_features, screenshots, reviews, categories, unlocked_companies, questions, vendors]
+compound_documents:
+  supported: true
+  param: include
+  coverage: 29 operations
+  response_field: included
+  schema: components.schemas.included
+  note: >-
+    An unknown member in `include` or `fields[...]` is a hard 400 with the offending value
+    echoed in the error title — the single most common documented failure in the contract.
+sorting:
+  param: sort
+  coverage: 5 operations
+  note: Allowed values are enumerated per operation; anything else is a 400 that lists the allowed set.
+versioning:
+  style: path
+  current: v2
+  path_prefix: /api/v2
+  see_also: lifecycle/g2-lifecycle.yml
+media_type: application/vnd.api+json
+error_envelope:
+  format: 'JSON:API errors array'
+  rfc9457: false
+  see_also: errors/g2-problem-types.yml
+rate_limit_signaling:
+  headers: none
+  limit: 100 requests/second per source IP (Cloudflare)
+  block_on_exhaustion: 60 seconds
+  see_also: rate-limits/g2-rate-limits.yml
+  note: >-
+    No RateLimit-* or Retry-After headers are declared. An agent cannot budget from the
+    response; it must rate-shape from the documented constant.
+request_id_tracing:
+  supported: unknown
+  note: No request-id or correlation-id header is declared in either OpenAPI document.
+metadata:
+  supported: false
+  note: No customer-writable metadata/custom-field surface on API resources.
+idempotency:
+  header: none
+  note: >-
+    G2 defines NO Idempotency-Key header on any operation. It does document natural-key
+    idempotency on the one credit-spending write, in the contract itself:
+    postG2ActivateUnlockedCompanies — "Idempotent: replaying an already-unlocked sig costs 0
+    credits and returns the existing record." That is a real, provider-stated replay guarantee
+    on the operation where a double-fire would cost the caller money, and it is the reason an
+    Idempotency pointer is emitted. It does NOT extend to the other writes.
+  operations:
+    - operationId: postG2ActivateUnlockedCompanies
+      guarantee: replay-safe
+      mechanism: natural key (opaque `sig` token)
+      cost_of_replay: 0 credits
+      evidence: openapi/g2-api-v2-openapi.yaml operation description
+    - operationId: createResearchBoard
+      guarantee: none
+      note: Replaying creates a duplicate board.
+    - operationId: createProductMapping
+      guarantee: none
+    - operationId: createPartnerDataSubscription
+      guarantee: none
+    - operationId: submitCurrentUserProductReview
+      guarantee: upsert
+      note: Documented as "Submit or update a review for a product" — one review per user per product, so a replay updates rather than duplicates.
+    - operationId: batchAddProductsToResearchBoard
+      guarantee: unknown
+dry_run_mode:
+  supported: partial
+  note: >-
+    There is no dry-run flag, but the G2 Activate flow is deliberately two-phase and gives an
+    agent a real rehearsal: getG2ActivateLockedCompanies returns masked companies with opaque
+    `sig` tokens and costs nothing, and only postG2ActivateUnlockedCompanies spends credits.
+    A separate sandbox path exists for buyer intent — see sandbox/g2-sandbox.yml.
+reversibility:
+  applicable: true
+  grade: documented
+  summary: >-
+    Reversal paths exist for every reversible write surface and G2 names them clearly, but the
+    documentation states no window for any of them, so this grades `documented` and not
+    `verified`. The one write that genuinely cannot be reversed — spending G2 Activate credits
+    — is also the one where reversibility matters most, and G2 is explicit that the protection
+    is idempotency, not refund.
+  write_surfaces:
+    - surface: Research boards
+      create: createResearchBoard
+      reversal: deleteResearchBoard
+      reversal_type: delete
+      window: not stated
+      grade: documented
+    - surface: Research board membership
+      create: addProductToResearchBoard, batchAddProductsToResearchBoard
+      reversal: removeProductFromResearchBoard, batchRemoveProductsFromResearchBoard
+      reversal_type: remove
+      window: not stated
+      grade: documented
+    - surface: Research board contents
+      create: updateResearchBoard
+      reversal: none
+      reversal_type: overwrite
+      window: not stated
+      grade: none
+      note: PATCH with no version/etag and no restore operation; a bad update is not recoverable through the API.
+    - surface: Partner data subscriptions
+      create: createPartnerDataSubscription
+      reversal: deletePartnerDataSubscription
+      reversal_type: delete
+      window: not stated
+      grade: documented
+    - surface: Product mappings
+      create: createProductMapping
+      reversal: updateProductMapping
+      reversal_type: overwrite
+      window: not stated
+      grade: partial
+      note: A mapping can be corrected by PUT but there is no delete operation in the contract.
+    - surface: G2 Activate company unlock (spends credits)
+      create: postG2ActivateUnlockedCompanies
+      reversal: none
+      reversal_type: none
+      window: none
+      grade: none
+      note: >-
+        IRREVERSIBLE AND BILLABLE. Credits are spent on unlock and no refund, void or re-lock
+        operation exists. G2's stated mitigation is idempotency — replaying an already-unlocked
+        sig costs 0 credits — not reversal. An agent must treat this as a point of no return,
+        rehearse against getG2ActivateLockedCompanies first, and check the credit balance via
+        getOrganizationCreditAccount before calling.
+    - surface: Review submission
+      create: submitCurrentUserProductReview
+      reversal: none
+      reversal_type: upsert
+      window: not stated
+      grade: partial
+      note: >-
+        No delete operation. A review can be resubmitted/updated through the same operation,
+        but withdrawal is a support/moderation action outside the API.
+  no_stated_windows: true
+  note: >-
+    NEVER assume a retention or restore window here. G2's documentation states none, and none
+    is asserted in this file.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

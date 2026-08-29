@@ -1,0 +1,70 @@
+generated: '2026-08-29'
+method: searched
+source: >-
+  https://documentation.g2.com/docs/leads,
+  https://documentation.g2.com/docs/hubspot-webhook,
+  https://documentation.g2.com/docs/salesforce-crm-webhook
+provider: G2
+providerId: g2
+asyncapi_published: false
+description: >-
+  G2 publishes no AsyncAPI document and no event catalog. It does operate one real outbound
+  webhook surface — G2 lead delivery — configured per customer in my.G2 and documented only
+  through two destination-specific integration guides.
+webhooks:
+  - name: G2 lead webhook
+    direction: outbound
+    trigger: >-
+      A buyer submits the lead form on the customer's G2 product profile page (including via
+      Contact and other CTAs).
+    delivery: HTTP POST to a customer-configured endpoint
+    configuration: my.G2 — lead form setup, then webhook setup
+    docs: https://documentation.g2.com/docs/leads
+    destinations_documented:
+      - name: HubSpot
+        docs: https://documentation.g2.com/docs/hubspot-webhook
+        mechanism: >-
+          Delivered into a HubSpot embedded form; G2 lead fields are mapped one by one onto
+          HubSpot form fields.
+      - name: Salesforce CRM
+        docs: https://documentation.g2.com/docs/salesforce-crm-webhook
+    payload:
+      schema_published: false
+      note: >-
+        No payload schema, no field list with types, and no example body are published. The
+        docs describe field mapping as a manual, per-customer exercise ("dozens of fields that
+        need to be matched"), because the field set is determined by the customer's own lead
+        form.
+      standard_fields:
+        note: >-
+          The lead form's standard fields are enumerated in the Leads documentation (including
+          Phone Number, Message, and Company/Company Size/Industry which G2 may auto-populate
+          from IP-based firmographic matching rather than from buyer input). Field API names
+          are auto-generated from the label when a custom field is added.
+      custom_fields:
+        supported: true
+        types: [Text Field, Menu, Hidden]
+        note: >-
+          Hidden fields are the documented mechanism for carrying customer tracking values
+          through to the receiving system.
+    security:
+      signing: not documented
+      retries: not documented
+      note: >-
+        No signature header, secret, replay protection or retry/backoff policy is published.
+        A receiver cannot verify that a delivery came from G2.
+    reliability: not documented
+gaps:
+  - No AsyncAPI or event-catalog document.
+  - No webhook payload schema or example body.
+  - No delivery signing or verification mechanism documented.
+  - No subscription API — webhooks are configured through the my.G2 UI only, with no endpoint in the OpenAPI to register or list them.
+  - No event types beyond lead delivery (no review-published, badge-awarded or intent-signal events).
+polling_alternative:
+  note: >-
+    In the absence of events, incremental change is retrieved by polling with
+    filter[updated_at_gt] / filter[created_at_gt], available on 14 and 13 operations
+    respectively. See conventions/g2-conventions.yml.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

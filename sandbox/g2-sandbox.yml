@@ -1,0 +1,59 @@
+generated: '2026-08-29'
+method: searched
+source: >-
+  openapi/g2-api-v2-openapi.yaml, https://documentation.g2.com/docs/developer-portal
+provider: G2
+providerId: g2
+description: >-
+  G2 ships a narrow but real sandbox: one dedicated sandbox endpoint in the contract plus an
+  authenticated try-it console. There are no test credentials, no test-mode key prefix and no
+  fixture/trigger tooling.
+modes:
+  test_vs_live_keys: false
+  note: >-
+    G2 does not issue test-mode credentials or use a key prefix to separate test from live.
+    The same bearer token addresses both the sandbox path and production data.
+sandbox_endpoints:
+  - operationId: getSandboxBuyerIntentInteractions
+    method: GET
+    path: /api/sandbox/products/{subject_product_id}/buyer_intent
+    summary: Browse sandbox buyer intent interactions for a product
+    live_twin: getBuyerIntentInteractions (/api/v2/products/{subject_product_id}/buyer_intent)
+    note: >-
+      The only /api/sandbox/* path in the contract. It shadows the buyer-intent browse — the
+      most entitlement-gated and most expensive surface to get wrong — and lets a client
+      exercise the shape without holding the Buyer Intent add-on.
+console:
+  type: swagger-ui
+  url: https://data.g2.com/api/v2/docs/index.html
+  auth_required: true
+  flow: >-
+    Reveal and copy an access token in the Developer Portal Access Tokens panel, select
+    Authorize in the API reference, paste the token, then Try it out / Execute per operation.
+  source: https://documentation.g2.com/docs/developer-portal
+  note: >-
+    Interactive but not anonymous. There is no keyless playground, so an agent or evaluator
+    cannot make a single call without a G2 account and subscription.
+rehearsal_patterns:
+  - name: Two-phase credit spend
+    description: >-
+      getG2ActivateLockedCompanies returns masked companies and opaque `sig` tokens at no
+      credit cost; only postG2ActivateUnlockedCompanies spends credits. This is the closest
+      thing G2 has to a dry run on its billable write.
+  - name: Balance pre-check
+    description: >-
+      getOrganizationCreditAccount and getOrganizationCreditDeductions let a caller verify
+      budget before an unlock.
+test_data:
+  cards: none
+  accounts: none
+  magic_identifiers: none
+  note: >-
+    NO test values are published. The sample response in the developer-portal documentation
+    uses placeholder UUIDs (aaaaaaaa-bbbb-4ccc-8ddd-...) and lvh.me development URLs; those
+    are illustrative doc output, not callable fixtures, and are not recorded here as test data.
+fixtures_and_triggers: none
+time_simulation: none
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

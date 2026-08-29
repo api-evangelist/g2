@@ -1,0 +1,40 @@
+generated: '2026-08-29'
+method: generated
+source: >-
+  openapi/g2-api-v2-openapi.yaml (every operationId below was grepped from the spec),
+  conventions/g2-conventions.yml, errors/g2-problem-types.yml, rate-limits/g2-rate-limits.yml
+provider: G2
+providerId: g2
+description: >-
+  Packaged Agent Skills for the G2 API. Every operationId referenced is verified against the
+  published contract; none are invented. No provider-published skills or AGENTS.md were found
+  on documentation.g2.com or in the g2crowd GitHub organization.
+skills:
+  - file: g2-buyer-intent-triage.md
+    name: g2-buyer-intent-triage
+    summary: Pull and rank buyer intent signals for a product, then enrich with competitors.
+    consequence: read-only
+    operations: 6
+  - file: g2-activate-company-unlock.md
+    name: g2-activate-company-unlock
+    summary: Spend G2 Activate credits to reveal company identities — billable and irreversible.
+    consequence: irreversible-billable
+    operations: 7
+    guardrails:
+      - Check the credit balance first.
+      - Rehearse against locked_companies (free).
+      - Require human confirmation before the write.
+      - Read meta.skipped[] — a 200 does not mean every sig succeeded.
+  - file: g2-catalog-sync.md
+    name: g2-catalog-sync
+    summary: Incrementally sync products, vendors, categories and reviews with updated_at windows and cursors.
+    consequence: read-only
+    operations: 12
+  - file: g2-research-board-curation.md
+    name: g2-research-board-curation
+    summary: Create and curate research boards — the only reversible write surface, and the MCP write path.
+    consequence: reversible-write
+    operations: 11
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

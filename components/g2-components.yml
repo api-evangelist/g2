@@ -1,0 +1,68 @@
+generated: '2026-08-29'
+method: searched
+source: >-
+  https://documentation.g2.com/docs/widgets,
+  https://documentation.g2.com/docs/review-collection-widgets,
+  https://documentation.g2.com/docs/g2-badges
+provider: G2
+providerId: g2
+description: >-
+  G2 ships a suite of embeddable client-side surfaces distinct from its API and SDKs. They are
+  copy-paste HTML embeds — iframes plus, for the Review Us Button, a script tag — generated
+  per customer in my.G2 rather than a versioned component library on a package registry.
+distribution:
+  model: hosted-embed
+  registry: none
+  loader_library: none
+  generated_in: https://my.g2.com (Marketing Content > Widgets, Review Management > Review Collection Widgets)
+  embed_host: www.g2.com
+  note: >-
+    Embed codes carry a per-widget `wid` query parameter and are not versioned or pinnable. A
+    consumer cannot tell which build they are getting; G2 states it does not support widgets
+    whose CSS has been modified.
+families:
+  - name: Grid widget
+    type: iframe
+    variants:
+      - name: Live Category Grid
+        description: The product's position on the Grid for a category, refreshed daily.
+        embed_pattern: https://www.g2.com/categories/{category-slug}/grids.embed
+      - name: Report-based Grid
+        description: A static Grid position for a completed reporting period.
+        embed_pattern: https://www.g2.com/reports/{report-uuid}/products/{product-slug}/grid.embed
+  - name: Star Rating widget
+    type: iframe
+    description: Star rating for a product, embeddable on a site or in an email signature.
+    also: Structured data for enabling star ratings in search engine results.
+  - name: Testimonials widget
+    type: iframe
+    description: Selected customer testimonials.
+    embed_pattern: https://www.g2.com/products/{product-slug}/testimonials/{id}.embed
+  - name: Review Snapshot widget
+    type: iframe
+    description: A condensed snapshot of review volume and sentiment.
+  - name: Review Spotlight widget
+    type: iframe
+    description: A highlighted review or set of reviews, created and updated in my.G2.
+  - name: Review Us Button
+    type: script + CTA embed
+    description: >-
+      Review collection CTA placed on the customer's own site. Requires both a CTA code block
+      and a separate script block added to the CMS. Supports reviewer authentication,
+      incentivization/segmentation, and tracking of reviews generated through the button.
+    docs: https://documentation.g2.com/docs/review-collection-widgets
+  - name: Review Us widget
+    type: iframe
+    description: Embedded review collection surface.
+    docs: https://documentation.g2.com/docs/review-collection-widgets
+  - name: G2 Badges
+    type: image asset
+    description: >-
+      Downloadable badge images (report, milestone, annual, 'Users Love Us') for a website or
+      email signature. Badge award data is also available programmatically via the
+      getProductMedals operation.
+    docs: https://documentation.g2.com/docs/g2-badges
+    api_equivalent: getProductMedals (/api/v2/products/{product_id}/badges)
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

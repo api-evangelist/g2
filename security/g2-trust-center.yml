@@ -1,16 +1,36 @@
-generated: '2026-07-11'
+generated: '2026-08-29'
 method: searched
 probe: true
 source: https://trust.g2.com/
 url: https://trust.g2.com/
+http_status: 200
+checked: '2026-08-29'
+provider: G2
+providerId: g2
+platform: SecurityPal AI
+profile_id: 151349ed-af65-4ee9-85da-8dfad3d3bf01
+published: '2026-04-16'
+last_updated: '2026-04-16'
 certifications:
-- SOC 2
-- GDPR
-- CSA STAR
+  - name: SOC 2 Type 2
+    category: attestation
+  - name: SOC 3
+    category: attestation
+  - name: CSA STAR
+    category: certification
+privacy_regimes:
+  - GDPR
+  - CCPA
+  - CPRA
+  - Privacy Shield Verified
 evidence:
-- source: https://trust.g2.com/
-  keywords:
-  - soc 2
-  - trust center
-  - gdpr
-  - csa star
+  - source: https://trust.g2.com/
+    http_status: 200
+    extracted:
+      - 'Certifications: SOC 2 Type 2, SOC 3, Privacy Shield Verified, GDPR, CCPA, CPRA, CSA STAR'
+note: >-
+  Certifications are listed on the trust profile; individual reports are gated behind a
+  request flow on the SecurityPal-hosted portal.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

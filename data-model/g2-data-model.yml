@@ -1,0 +1,212 @@
+generated: '2026-08-29'
+method: derived
+source: >-
+  openapi/g2-api-v2-openapi.yaml — derived from the JSON:API `include` relationship
+  enumerations declared on 29 operations, the path hierarchy, and the id parameters
+provider: G2
+providerId: g2
+description: >-
+  Entity graph for the G2 v2 API. G2 does not publish per-resource JSON Schemas in the
+  contract (components.schemas holds only the four envelope shapes), so the graph below is
+  reconstructed from the relationship names the API itself accepts in `include`, plus the
+  resource types the documented sample payloads emit.
+caveat: >-
+  Attribute-level fields are NOT enumerated here. The spec declares `attributes` as a free-form
+  object, so any field list would be invented. Only relationships G2 itself names are recorded.
+identifiers:
+  format: UUID v4
+  note: >-
+    Products, categories, discussions and vendors are addressed by UUID. Products and
+    categories additionally carry a human `slug` that is filterable (filter[slug][]).
+  no_prefixes: true
+entities:
+  - name: product
+    type: products
+    primary: true
+    operations: [getProducts, getProduct, getCurrentUserProducts]
+    filterable_by: [category_id, product_id, review_count_gteq, slug, star_rating, vendor_name, product_name_cont, product_name_eq, public_detail_url, public_detail_url_cont, query]
+    sparse_fieldset: 'fields[products]'
+  - name: vendor
+    type: vendors
+    operations: [getVendors, getVendor]
+    sparse_fieldset: 'fields[vendors]'
+  - name: category
+    type: product_categories
+    operations: [getCategories, getCategory]
+    hierarchical: true
+    sparse_fieldset: 'fields[categories]'
+  - name: review
+    type: reviews
+    operations: [getProductReviews, getCurrentUserProductReview, submitCurrentUserProductReview, getDataSolutionsReviews]
+    sparse_fieldset: 'fields[reviews]'
+  - name: product_feature
+    type: product_features
+    operations: [getProductFeatures, getAllProductFeatures, getCategoryFeatures, getAllCategoryFeatures]
+    sparse_fieldset: 'fields[product_features]'
+  - name: screenshot
+    type: screenshots
+    operations: [getScreenshots, getScreenshot, getProductScreenshots]
+    sparse_fieldset: 'fields[screenshots]'
+  - name: discussion
+    type: discussions
+    operations: [getProductDiscussions]
+  - name: question
+    type: questions
+    operations: [getQuestions, getQuestion]
+    sparse_fieldset: 'fields[questions]'
+  - name: user
+    type: users
+    operations: [getCurrentUser]
+  - name: medal
+    type: medals
+    operations: [getProductMedals]
+    note: Badges awarded to a product.
+  - name: buyer_intent_interaction
+    operations: [getGlobalBuyerIntentInteractions, getBuyerIntentInteractions, getSandboxBuyerIntentInteractions]
+  - name: market_signal
+    operations: [getMarketSignalsIndex]
+  - name: unlocked_company
+    type: unlocked_companies
+    operations: [getG2ActivateUnlockedCompanies, getG2ActivateUnlockedCompany, postG2ActivateUnlockedCompanies]
+    sparse_fieldset: 'fields[unlocked_companies]'
+  - name: locked_company
+    operations: [getG2ActivateLockedCompanies]
+    note: Masked companies carrying opaque `sig` tokens; unlocking spends credits.
+  - name: credit_account
+    operations: [getOrganizationCreditAccount]
+  - name: credit_deduction
+    operations: [getOrganizationCreditDeductions]
+  - name: research_board
+    operations: [listResearchBoards, getResearchBoard, createResearchBoard, updateResearchBoard, deleteResearchBoard]
+  - name: product_mapping
+    operations: [getProductMappings, createProductMapping, updateProductMapping]
+  - name: data_subscription
+    operations: [getPartnerDataSubscriptions, createPartnerDataSubscription, deletePartnerDataSubscription]
+  - name: video / video_review
+    operations: [getProductVideos, getProductVideoReviews]
+  - name: download
+    operations: [getProductDownloads]
+  - name: integration_review
+    operations: [getProductIntegrationReviews]
+  - name: grid_report
+    operations: [getGridReports]
+  - name: product_rating
+    operations: [getProductRatings]
+  - name: snippet
+    operations: [getProductSnippets]
+  - name: competitor
+    operations: [getProductCompetitors]
+relationships:
+  - from: product
+    to: vendor
+    kind: belongs_to
+    via: 'include=vendor'
+  - from: product
+    to: category
+    kind: has_many
+    via: 'include=categories'
+  - from: product
+    to: discussion
+    kind: has_many
+    via: 'include=discussions'
+  - from: product
+    to: screenshot
+    kind: has_many
+    via: 'include=screenshots'
+  - from: category
+    to: product
+    kind: has_many
+    via: 'include=products'
+  - from: category
+    to: category
+    kind: has_many
+    via: 'include=children'
+    note: Self-referencing taxonomy.
+  - from: category
+    to: category
+    kind: belongs_to
+    via: 'include=parent'
+  - from: category
+    to: category
+    kind: has_many
+    via: 'include=ancestors,descendants'
+  - from: screenshot
+    to: product
+    kind: belongs_to
+    via: 'include=product'
+  - from: screenshot
+    to: vendor
+    kind: belongs_to
+    via: 'include=vendor'
+  - from: product_feature
+    to: category
+    kind: belongs_to
+    via: 'include=category'
+  - from: product_feature
+    to: product
+    kind: belongs_to
+    via: 'include=product'
+  - from: discussion
+    to: user
+    kind: belongs_to
+    via: 'include=user'
+  - from: discussion
+    to: comment
+    kind: has_many
+    via: 'include=comments'
+  - from: integration_review
+    to: product
+    kind: belongs_to
+    via: 'include=product'
+  - from: integration_review
+    to: product
+    kind: belongs_to
+    via: 'include=primary_product'
+    note: An integration review links two products — the integration and the primary product.
+  - from: integration_review
+    to: user
+    kind: belongs_to
+    via: 'include=user'
+  - from: medal
+    to: product
+    kind: belongs_to
+    via: 'include=product'
+  - from: medal
+    to: category
+    kind: has_many
+    via: 'include=categories'
+  - from: competitor
+    to: category
+    kind: has_many
+    via: 'include=categories'
+  - from: question
+    to: category
+    kind: has_many
+    via: 'include=categories'
+  - from: video / video_review
+    to: product
+    kind: belongs_to
+    via: 'include=product'
+  - from: download
+    to: product
+    kind: belongs_to
+    via: 'include=product'
+  - from: credit_account
+    to: credit_deduction
+    kind: has_many
+    via: 'include=deductions'
+  - from: research_board
+    to: product
+    kind: has_many
+    via: listResearchBoardProducts
+  - from: product
+    to: review
+    kind: has_many
+    via: getProductReviews
+  - from: product
+    to: buyer_intent_interaction
+    kind: has_many
+    via: getBuyerIntentInteractions
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
