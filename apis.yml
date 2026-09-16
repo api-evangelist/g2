@@ -36,7 +36,7 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/g2.png
 access: 3rd-Party
 url: https://raw.githubusercontent.com/api-evangelist/g2/refs/heads/main/apis.yml
 created: '2026-03-24'
-modified: '2026-08-29'
+modified: '2026-09-16'
 specificationVersion: '0.23'
 tags:
 - B2B
@@ -50,64 +50,6 @@ tags:
 - Data Solutions
 - MCP
 apis:
-- aid: g2:g2-api
-  name: G2 API
-  description: The G2 API provides programmatic access to G2's product, category, and review data. It
-    enables developers to retrieve software product listings, user reviews, category taxonomies, and competitive
-    intelligence data from the world's largest B2B software marketplace. The API supports endpoints for
-    products, categories, reviews, and syndication, and uses token-based authentication.
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  baseURL: https://data.g2.com
-  humanURL: https://documentation.g2.com/docs/g2-api
-  tags:
-  - Categories
-  - Product
-  - Reviews
-  - Software Discovery
-  tags_raw:
-  - Categories
-  - Products
-  - Reviews
-  - Software Discovery
-  properties:
-  - type: Documentation
-    url: https://documentation.g2.com/docs/g2-api
-  - type: Portal
-    url: https://documentation.g2.com/docs/developer-portal
-  - type: GettingStarted
-    url: https://documentation.g2.com/docs/g2-api-information
-  - type: Integrations
-    url: https://documentation.g2.com/docs/integrations
-  - type: OpenAPI
-    url: openapi/g2-api-v2-openapi.yaml
-  - type: Overlay
-    url: overlays/g2-api-v2-overlay.yaml
-  - type: APIReference
-    url: https://data.g2.com/api/v2/docs/index.html
-- aid: g2:g2-data-solutions-api
-  name: G2 Data Solutions API
-  description: The G2 Data Solutions API returns enriched G2 review data with flat attribute structures,
-    intended for investors, private equity and analytics teams that need product momentum, comparison
-    and customer-satisfaction signal in a denormalised shape rather than as a JSON:API relationship graph.
-    It is published as a separate OpenAPI document from the main G2 v2 API and is gated behind the G2
-    Data Solutions add-on.
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  baseURL: https://data.g2.com
-  humanURL: https://data.g2.com/api/v2/docs/index.html
-  tags:
-  - Data Solutions
-  - Reviews
-  - Market Intelligence
-  - Software Reviews
-  properties:
-  - type: OpenAPI
-    url: openapi/g2-data-solutions-openapi.yaml
-  - type: Overlay
-    url: overlays/g2-data-solutions-overlay.yaml
-  - type: APIReference
-    url: https://data.g2.com/api/v2/docs/index.html
-  - type: Documentation
-    url: https://documentation.g2.com/docs/g2-api
 - aid: g2:g2-mcp-server
   name: G2 MCP Server
   description: G2's first-party remote Model Context Protocol server. It exposes 21 tools covering buyer
@@ -130,7 +72,569 @@ apis:
     url: mcp/g2-tool-crosswalk.yml
   - type: Documentation
     url: https://documentation.g2.com/docs/g2-mcp-server
+- aid: g2:g2-buyer-intent-api
+  name: G2 Buyer Intent API
+  description: The Buyer Intent API from G2 — 3 operation(s) for buyer intent.
+  humanURL: https://documentation.g2.com/docs/g2-api
+  baseURL: https://data.g2.com
+  tags:
+  - Buyer Intent
+  properties:
+  - type: OpenAPI
+    url: openapi/g2-buyer-intent-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.g2.com/docs/g2-api
+  - type: Portal
+    url: https://documentation.g2.com/docs/developer-portal
+  - type: GettingStarted
+    url: https://documentation.g2.com/docs/g2-api-information
+  - type: Integrations
+    url: https://documentation.g2.com/docs/integrations
+  - type: APIReference
+    url: https://data.g2.com/api/v2/docs/index.html
+- aid: g2:g2-categories-api
+  name: G2 Categories API
+  description: The Categories API from G2 — 2 operation(s) for categories.
+  humanURL: https://documentation.g2.com/docs/g2-api
+  baseURL: https://data.g2.com
+  tags:
+  - Categories
+  properties:
+  - type: OpenAPI
+    url: openapi/g2-categories-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.g2.com/docs/g2-api
+  - type: Portal
+    url: https://documentation.g2.com/docs/developer-portal
+  - type: GettingStarted
+    url: https://documentation.g2.com/docs/g2-api-information
+  - type: Integrations
+    url: https://documentation.g2.com/docs/integrations
+  - type: APIReference
+    url: https://data.g2.com/api/v2/docs/index.html
+- aid: g2:g2-chat-gpt-plugin-api
+  name: G2 Chat Gpt Plugin API
+  description: The Chat Gpt Plugin API from G2 — 2 operation(s) for chat gpt plugin.
+  humanURL: https://documentation.g2.com/docs/g2-api
+  baseURL: https://data.g2.com
+  tags:
+  - Chat Gpt Plugin
+  properties:
+  - type: OpenAPI
+    url: openapi/g2-chat-gpt-plugin-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.g2.com/docs/g2-api
+  - type: Portal
+    url: https://documentation.g2.com/docs/developer-portal
+  - type: GettingStarted
+    url: https://documentation.g2.com/docs/g2-api-information
+  - type: Integrations
+    url: https://documentation.g2.com/docs/integrations
+  - type: APIReference
+    url: https://data.g2.com/api/v2/docs/index.html
+- aid: g2:g2-competitors-api
+  name: G2 Competitors API
+  description: The Competitors API from G2 — 1 operation(s) for competitors.
+  humanURL: https://documentation.g2.com/docs/g2-api
+  baseURL: https://data.g2.com
+  tags:
+  - Competitors
+  properties:
+  - type: OpenAPI
+    url: openapi/g2-competitors-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.g2.com/docs/g2-api
+  - type: Portal
+    url: https://documentation.g2.com/docs/developer-portal
+  - type: GettingStarted
+    url: https://documentation.g2.com/docs/g2-api-information
+  - type: Integrations
+    url: https://documentation.g2.com/docs/integrations
+  - type: APIReference
+    url: https://data.g2.com/api/v2/docs/index.html
+- aid: g2:g2-credit-account-api
+  name: G2 Credit Account API
+  description: The Credit Account API from G2 — 2 operation(s) for credit account.
+  humanURL: https://documentation.g2.com/docs/g2-api
+  baseURL: https://data.g2.com
+  tags:
+  - Credit Account
+  properties:
+  - type: OpenAPI
+    url: openapi/g2-credit-account-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.g2.com/docs/g2-api
+  - type: Portal
+    url: https://documentation.g2.com/docs/developer-portal
+  - type: GettingStarted
+    url: https://documentation.g2.com/docs/g2-api-information
+  - type: Integrations
+    url: https://documentation.g2.com/docs/integrations
+  - type: APIReference
+    url: https://data.g2.com/api/v2/docs/index.html
+- aid: g2:g2-data-solutions-reviews-api
+  name: G2 Data Solutions Reviews API
+  description: The Data Solutions Reviews API from G2 — 1 operation(s) for data solutions reviews.
+  humanURL: https://documentation.g2.com/docs/g2-api
+  baseURL: https://data.g2.com
+  tags:
+  - Data Solutions Reviews
+  properties:
+  - type: OpenAPI
+    url: openapi/g2-data-solutions-reviews-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.g2.com/docs/g2-api
+  - type: Portal
+    url: https://documentation.g2.com/docs/developer-portal
+  - type: GettingStarted
+    url: https://documentation.g2.com/docs/g2-api-information
+  - type: Integrations
+    url: https://documentation.g2.com/docs/integrations
+  - type: APIReference
+    url: https://data.g2.com/api/v2/docs/index.html
+- aid: g2:g2-data-subscriptions-api
+  name: G2 Data Subscriptions API
+  description: The Data Subscriptions API from G2 — 2 operation(s) for data subscriptions.
+  humanURL: https://documentation.g2.com/docs/g2-api
+  baseURL: https://data.g2.com
+  tags:
+  - Data Subscriptions
+  properties:
+  - type: OpenAPI
+    url: openapi/g2-data-subscriptions-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.g2.com/docs/g2-api
+  - type: Portal
+    url: https://documentation.g2.com/docs/developer-portal
+  - type: GettingStarted
+    url: https://documentation.g2.com/docs/g2-api-information
+  - type: Integrations
+    url: https://documentation.g2.com/docs/integrations
+  - type: APIReference
+    url: https://data.g2.com/api/v2/docs/index.html
+- aid: g2:g2-discussions-api
+  name: G2 Discussions API
+  description: The Discussions API from G2 — 1 operation(s) for discussions.
+  humanURL: https://documentation.g2.com/docs/g2-api
+  baseURL: https://data.g2.com
+  tags:
+  - Discussions
+  properties:
+  - type: OpenAPI
+    url: openapi/g2-discussions-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.g2.com/docs/g2-api
+  - type: Portal
+    url: https://documentation.g2.com/docs/developer-portal
+  - type: GettingStarted
+    url: https://documentation.g2.com/docs/g2-api-information
+  - type: Integrations
+    url: https://documentation.g2.com/docs/integrations
+  - type: APIReference
+    url: https://data.g2.com/api/v2/docs/index.html
+- aid: g2:g2-downloads-api
+  name: G2 Downloads API
+  description: The Downloads API from G2 — 1 operation(s) for downloads.
+  humanURL: https://documentation.g2.com/docs/g2-api
+  baseURL: https://data.g2.com
+  tags:
+  - Downloads
+  properties:
+  - type: OpenAPI
+    url: openapi/g2-downloads-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.g2.com/docs/g2-api
+  - type: Portal
+    url: https://documentation.g2.com/docs/developer-portal
+  - type: GettingStarted
+    url: https://documentation.g2.com/docs/g2-api-information
+  - type: Integrations
+    url: https://documentation.g2.com/docs/integrations
+  - type: APIReference
+    url: https://data.g2.com/api/v2/docs/index.html
+- aid: g2:g2-g2-activate-api
+  name: G2 G2 Activate API
+  description: The G2 Activate API from G2 — 4 operation(s) for g2 activate.
+  humanURL: https://documentation.g2.com/docs/g2-api
+  baseURL: https://data.g2.com
+  tags:
+  - G2 Activate
+  properties:
+  - type: OpenAPI
+    url: openapi/g2-g2-activate-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.g2.com/docs/g2-api
+  - type: Portal
+    url: https://documentation.g2.com/docs/developer-portal
+  - type: GettingStarted
+    url: https://documentation.g2.com/docs/g2-api-information
+  - type: Integrations
+    url: https://documentation.g2.com/docs/integrations
+  - type: APIReference
+    url: https://data.g2.com/api/v2/docs/index.html
+- aid: g2:g2-integration-reviews-api
+  name: G2 Integration Reviews API
+  description: The Integration Reviews API from G2 — 1 operation(s) for integration reviews.
+  humanURL: https://documentation.g2.com/docs/g2-api
+  baseURL: https://data.g2.com
+  tags:
+  - Integration Reviews
+  properties:
+  - type: OpenAPI
+    url: openapi/g2-integration-reviews-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.g2.com/docs/g2-api
+  - type: Portal
+    url: https://documentation.g2.com/docs/developer-portal
+  - type: GettingStarted
+    url: https://documentation.g2.com/docs/g2-api-information
+  - type: Integrations
+    url: https://documentation.g2.com/docs/integrations
+  - type: APIReference
+    url: https://data.g2.com/api/v2/docs/index.html
+- aid: g2:g2-market-signals-api
+  name: G2 Market Signals API
+  description: The Market Signals API from G2 — 1 operation(s) for market signals.
+  humanURL: https://documentation.g2.com/docs/g2-api
+  baseURL: https://data.g2.com
+  tags:
+  - Market Signals
+  properties:
+  - type: OpenAPI
+    url: openapi/g2-market-signals-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.g2.com/docs/g2-api
+  - type: Portal
+    url: https://documentation.g2.com/docs/developer-portal
+  - type: GettingStarted
+    url: https://documentation.g2.com/docs/g2-api-information
+  - type: Integrations
+    url: https://documentation.g2.com/docs/integrations
+  - type: APIReference
+    url: https://data.g2.com/api/v2/docs/index.html
+- aid: g2:g2-medals-api
+  name: G2 Medals API
+  description: The Medals API from G2 — 1 operation(s) for medals.
+  humanURL: https://documentation.g2.com/docs/g2-api
+  baseURL: https://data.g2.com
+  tags:
+  - Medals
+  properties:
+  - type: OpenAPI
+    url: openapi/g2-medals-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.g2.com/docs/g2-api
+  - type: Portal
+    url: https://documentation.g2.com/docs/developer-portal
+  - type: GettingStarted
+    url: https://documentation.g2.com/docs/g2-api-information
+  - type: Integrations
+    url: https://documentation.g2.com/docs/integrations
+  - type: APIReference
+    url: https://data.g2.com/api/v2/docs/index.html
+- aid: g2:g2-performance-analytics-api
+  name: G2 Performance Analytics API
+  description: The Performance Analytics API from G2 — 5 operation(s) for performance analytics.
+  humanURL: https://documentation.g2.com/docs/g2-api
+  baseURL: https://data.g2.com
+  tags:
+  - Performance Analytics
+  properties:
+  - type: OpenAPI
+    url: openapi/g2-performance-analytics-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.g2.com/docs/g2-api
+  - type: Portal
+    url: https://documentation.g2.com/docs/developer-portal
+  - type: GettingStarted
+    url: https://documentation.g2.com/docs/g2-api-information
+  - type: Integrations
+    url: https://documentation.g2.com/docs/integrations
+  - type: APIReference
+    url: https://data.g2.com/api/v2/docs/index.html
+- aid: g2:g2-product-features-api
+  name: G2 Product Features API
+  description: The Product Features API from G2 — 4 operation(s) for product features.
+  humanURL: https://documentation.g2.com/docs/g2-api
+  baseURL: https://data.g2.com
+  tags:
+  - Product Features
+  properties:
+  - type: OpenAPI
+    url: openapi/g2-product-features-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.g2.com/docs/g2-api
+  - type: Portal
+    url: https://documentation.g2.com/docs/developer-portal
+  - type: GettingStarted
+    url: https://documentation.g2.com/docs/g2-api-information
+  - type: Integrations
+    url: https://documentation.g2.com/docs/integrations
+  - type: APIReference
+    url: https://data.g2.com/api/v2/docs/index.html
+- aid: g2:g2-product-mappings-api
+  name: G2 Product Mappings API
+  description: The Product Mappings API from G2 — 2 operation(s) for product mappings.
+  humanURL: https://documentation.g2.com/docs/g2-api
+  baseURL: https://data.g2.com
+  tags:
+  - Product Mappings
+  properties:
+  - type: OpenAPI
+    url: openapi/g2-product-mappings-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.g2.com/docs/g2-api
+  - type: Portal
+    url: https://documentation.g2.com/docs/developer-portal
+  - type: GettingStarted
+    url: https://documentation.g2.com/docs/g2-api-information
+  - type: Integrations
+    url: https://documentation.g2.com/docs/integrations
+  - type: APIReference
+    url: https://data.g2.com/api/v2/docs/index.html
+- aid: g2:g2-product-ratings-api
+  name: G2 Product Ratings API
+  description: The Product Ratings API from G2 — 1 operation(s) for product ratings.
+  humanURL: https://documentation.g2.com/docs/g2-api
+  baseURL: https://data.g2.com
+  tags:
+  - Product Ratings
+  properties:
+  - type: OpenAPI
+    url: openapi/g2-product-ratings-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.g2.com/docs/g2-api
+  - type: Portal
+    url: https://documentation.g2.com/docs/developer-portal
+  - type: GettingStarted
+    url: https://documentation.g2.com/docs/g2-api-information
+  - type: Integrations
+    url: https://documentation.g2.com/docs/integrations
+  - type: APIReference
+    url: https://data.g2.com/api/v2/docs/index.html
+- aid: g2:g2-product-videos-api
+  name: G2 Product Videos API
+  description: The Product Videos API from G2 — 1 operation(s) for product videos.
+  humanURL: https://documentation.g2.com/docs/g2-api
+  baseURL: https://data.g2.com
+  tags:
+  - Product Videos
+  properties:
+  - type: OpenAPI
+    url: openapi/g2-product-videos-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.g2.com/docs/g2-api
+  - type: Portal
+    url: https://documentation.g2.com/docs/developer-portal
+  - type: GettingStarted
+    url: https://documentation.g2.com/docs/g2-api-information
+  - type: Integrations
+    url: https://documentation.g2.com/docs/integrations
+  - type: APIReference
+    url: https://data.g2.com/api/v2/docs/index.html
+- aid: g2:g2-products-api
+  name: G2 Products API
+  description: The Products API from G2 — 3 operation(s) for products.
+  humanURL: https://documentation.g2.com/docs/g2-api
+  baseURL: https://data.g2.com
+  tags:
+  - Products
+  properties:
+  - type: OpenAPI
+    url: openapi/g2-products-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.g2.com/docs/g2-api
+  - type: Portal
+    url: https://documentation.g2.com/docs/developer-portal
+  - type: GettingStarted
+    url: https://documentation.g2.com/docs/g2-api-information
+  - type: Integrations
+    url: https://documentation.g2.com/docs/integrations
+  - type: APIReference
+    url: https://data.g2.com/api/v2/docs/index.html
+- aid: g2:g2-questions-api
+  name: G2 Questions API
+  description: The Questions API from G2 — 2 operation(s) for questions.
+  humanURL: https://documentation.g2.com/docs/g2-api
+  baseURL: https://data.g2.com
+  tags:
+  - Questions
+  properties:
+  - type: OpenAPI
+    url: openapi/g2-questions-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.g2.com/docs/g2-api
+  - type: Portal
+    url: https://documentation.g2.com/docs/developer-portal
+  - type: GettingStarted
+    url: https://documentation.g2.com/docs/g2-api-information
+  - type: Integrations
+    url: https://documentation.g2.com/docs/integrations
+  - type: APIReference
+    url: https://data.g2.com/api/v2/docs/index.html
+- aid: g2:g2-reports-api
+  name: G2 Reports API
+  description: The Reports API from G2 — 1 operation(s) for reports.
+  humanURL: https://documentation.g2.com/docs/g2-api
+  baseURL: https://data.g2.com
+  tags:
+  - Reports
+  properties:
+  - type: OpenAPI
+    url: openapi/g2-reports-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.g2.com/docs/g2-api
+  - type: Portal
+    url: https://documentation.g2.com/docs/developer-portal
+  - type: GettingStarted
+    url: https://documentation.g2.com/docs/g2-api-information
+  - type: Integrations
+    url: https://documentation.g2.com/docs/integrations
+  - type: APIReference
+    url: https://data.g2.com/api/v2/docs/index.html
+- aid: g2:g2-research-boards-api
+  name: G2 Research Boards API
+  description: The Research Boards API from G2 — 6 operation(s) for research boards.
+  humanURL: https://documentation.g2.com/docs/g2-api
+  baseURL: https://data.g2.com
+  tags:
+  - Research Boards
+  properties:
+  - type: OpenAPI
+    url: openapi/g2-research-boards-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.g2.com/docs/g2-api
+  - type: Portal
+    url: https://documentation.g2.com/docs/developer-portal
+  - type: GettingStarted
+    url: https://documentation.g2.com/docs/g2-api-information
+  - type: Integrations
+    url: https://documentation.g2.com/docs/integrations
+  - type: APIReference
+    url: https://data.g2.com/api/v2/docs/index.html
+- aid: g2:g2-reviews-api
+  name: G2 Reviews API
+  description: The Reviews API from G2 — 2 operation(s) for reviews.
+  humanURL: https://documentation.g2.com/docs/g2-api
+  baseURL: https://data.g2.com
+  tags:
+  - Reviews
+  properties:
+  - type: OpenAPI
+    url: openapi/g2-reviews-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.g2.com/docs/g2-api
+  - type: Portal
+    url: https://documentation.g2.com/docs/developer-portal
+  - type: GettingStarted
+    url: https://documentation.g2.com/docs/g2-api-information
+  - type: Integrations
+    url: https://documentation.g2.com/docs/integrations
+  - type: APIReference
+    url: https://data.g2.com/api/v2/docs/index.html
+- aid: g2:g2-screenshots-api
+  name: G2 Screenshots API
+  description: The Screenshots API from G2 — 3 operation(s) for screenshots.
+  humanURL: https://documentation.g2.com/docs/g2-api
+  baseURL: https://data.g2.com
+  tags:
+  - Screenshots
+  properties:
+  - type: OpenAPI
+    url: openapi/g2-screenshots-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.g2.com/docs/g2-api
+  - type: Portal
+    url: https://documentation.g2.com/docs/developer-portal
+  - type: GettingStarted
+    url: https://documentation.g2.com/docs/g2-api-information
+  - type: Integrations
+    url: https://documentation.g2.com/docs/integrations
+  - type: APIReference
+    url: https://data.g2.com/api/v2/docs/index.html
+- aid: g2:g2-snippets-api
+  name: G2 Snippets API
+  description: The Snippets API from G2 — 1 operation(s) for snippets.
+  humanURL: https://documentation.g2.com/docs/g2-api
+  baseURL: https://data.g2.com
+  tags:
+  - Snippets
+  properties:
+  - type: OpenAPI
+    url: openapi/g2-snippets-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.g2.com/docs/g2-api
+  - type: Portal
+    url: https://documentation.g2.com/docs/developer-portal
+  - type: GettingStarted
+    url: https://documentation.g2.com/docs/g2-api-information
+  - type: Integrations
+    url: https://documentation.g2.com/docs/integrations
+  - type: APIReference
+    url: https://data.g2.com/api/v2/docs/index.html
+- aid: g2:g2-users-api
+  name: G2 Users API
+  description: The Users API from G2 — 1 operation(s) for users.
+  humanURL: https://documentation.g2.com/docs/g2-api
+  baseURL: https://data.g2.com
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/g2-users-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.g2.com/docs/g2-api
+  - type: Portal
+    url: https://documentation.g2.com/docs/developer-portal
+  - type: GettingStarted
+    url: https://documentation.g2.com/docs/g2-api-information
+  - type: Integrations
+    url: https://documentation.g2.com/docs/integrations
+  - type: APIReference
+    url: https://data.g2.com/api/v2/docs/index.html
+- aid: g2:g2-vendors-api
+  name: G2 Vendors API
+  description: The Vendors API from G2 — 2 operation(s) for vendors.
+  humanURL: https://documentation.g2.com/docs/g2-api
+  baseURL: https://data.g2.com
+  tags:
+  - Vendors
+  properties:
+  - type: OpenAPI
+    url: openapi/g2-vendors-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.g2.com/docs/g2-api
+  - type: Portal
+    url: https://documentation.g2.com/docs/developer-portal
+  - type: GettingStarted
+    url: https://documentation.g2.com/docs/g2-api-information
+  - type: Integrations
+    url: https://documentation.g2.com/docs/integrations
+  - type: APIReference
+    url: https://data.g2.com/api/v2/docs/index.html
+- aid: g2:g2-video-reviews-api
+  name: G2 Video Reviews API
+  description: The Video Reviews API from G2 — 1 operation(s) for video reviews.
+  humanURL: https://documentation.g2.com/docs/g2-api
+  baseURL: https://data.g2.com
+  tags:
+  - Video Reviews
+  properties:
+  - type: OpenAPI
+    url: openapi/g2-video-reviews-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.g2.com/docs/g2-api
+  - type: Portal
+    url: https://documentation.g2.com/docs/developer-portal
+  - type: GettingStarted
+    url: https://documentation.g2.com/docs/g2-api-information
+  - type: Integrations
+    url: https://documentation.g2.com/docs/integrations
+  - type: APIReference
+    url: https://data.g2.com/api/v2/docs/index.html
 common:
+- type: Overlay
+  url: overlays/g2-data-solutions-overlay.yaml
 - type: Website
   url: https://www.g2.com/
 - type: OAuthScopes
@@ -207,7 +711,7 @@ common:
   - name: Marketo
     description: Push G2 buyer intent signals into Marketo for demand generation campaigns.
 - type: OpenAPI
-  url: openapi/g2-api-v2-openapi.yaml
+  url: openapi/_original/g2-api-v2-openapi.yaml
 - type: Overlay
   url: overlays/g2-api-v2-overlay.yaml
 - type: WellKnown
