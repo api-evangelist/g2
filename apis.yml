@@ -438,6 +438,8 @@ apis:
   humanURL: https://documentation.g2.com/docs/g2-api
   baseURL: https://data.g2.com
   tags:
+  - Product
+  tags_raw:
   - Products
   properties:
   - type: OpenAPI
@@ -578,6 +580,8 @@ apis:
   humanURL: https://documentation.g2.com/docs/g2-api
   baseURL: https://data.g2.com
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
