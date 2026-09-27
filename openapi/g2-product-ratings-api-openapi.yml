@@ -141,19 +141,6 @@ paths:
                     $ref: '#/components/schemas/included'
 components:
   schemas:
-    included:
-      type: array
-      items:
-        type: object
-        properties:
-          id:
-            type: string
-          type:
-            type: string
-          attributes:
-            type: object
-          relationships:
-            type: object
     Errors:
       type: object
       properties:
@@ -174,6 +161,19 @@ components:
                 type:
                 - object
                 - 'null'
+    included:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: string
+          type:
+            type: string
+          attributes:
+            type: object
+          relationships:
+            type: object
   securitySchemes:
     AccountAPIToken:
       type: http
