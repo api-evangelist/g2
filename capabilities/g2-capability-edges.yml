@@ -1,0 +1,57 @@
+slug: g2
+provider: G2
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 4
+edges:
+- tag: Buyer Intent
+  spec_file: g2-buyer-intent-api-openapi.yml
+  capability_id: BC-400.30
+  capability_id_l1: BC-400
+  capability_name: Market Intelligence Management
+  confidence: 0.75
+  evidence: GET /api/v2/products/{subject_product_id}/buyer_intent  getBuyerIntentInteractions  Browse
+    buyer intent interactions for a product
+  reason: Buyer intent interaction signals on G2 product pages are market/customer intelligence used for
+    demand identification. Could also serve lead generation, so confidence moderate.
+- tag: Competitors
+  spec_file: g2-competitors-api-openapi.yml
+  capability_id: BC-400.30
+  capability_id_l1: BC-400
+  capability_name: Market Intelligence Management
+  confidence: 0.75
+  evidence: GET /api/v2/products/{product_id}/competitors  getProductCompetitors  Lists competitors related
+    to given product
+  reason: Retrieving competitor sets for a product is competitive intelligence, a component of market
+    intelligence management. Single read operation keeps confidence moderate.
+- tag: G2 Activate
+  spec_file: g2-g2-activate-api-openapi.yml
+  capability_id: BC-400.40
+  capability_id_l1: BC-400
+  capability_name: Demand Generation Management
+  confidence: 0.7
+  evidence: '"Lists locked companies (masked) showing intent for a product"; "Spends G2 Activate credits
+    to unlock one or more locked companies"; "Shows a single unlocked company with resolved contacts"'
+  reason: These operations surface in-market accounts showing buyer intent and resolve them to contacts
+    — classic intent-based lead generation/prospecting feeding demand generation. Could arguably sit in
+    Opportunity & Pipeline Management, but the surface stops at identifying and unlocking target companies,
+    not managing deals.
+- tag: Performance Analytics
+  spec_file: g2-performance-analytics-api-openapi.yml
+  capability_id: BC-400.50
+  capability_id_l1: BC-400
+  capability_name: Marketing Operations Management
+  confidence: 0.7
+  evidence: '"Show ROI summary"; "Show ROI trend"; "Show CRM integration health"; "Show CRM data quality"'
+  reason: These operations measure the return on G2 marketing spend and the health of the CRM integration
+    that attributes it — marketing measurement, technology and process operations. Not an observability
+    or data-quality platform capability; the ROI framing makes marketing operations the fit.
