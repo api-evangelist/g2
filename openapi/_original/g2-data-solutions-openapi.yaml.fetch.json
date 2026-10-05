@@ -1,0 +1,12 @@
+{
+ "url": "https://data.g2.com/openapi/data_solutions.yaml",
+ "requested_url": "https://data.g2.com/openapi/data_solutions.yaml",
+ "status": 200,
+ "content_type": "text/yaml",
+ "bytes": 30769,
+ "sha256": "5aa36aec43255780985ad391d55cc5244b5255aafa2bd6131bd2a36795ecc8dd",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 1.0), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
