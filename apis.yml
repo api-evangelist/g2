@@ -637,6 +637,8 @@ apis:
   - type: APIReference
     url: https://data.g2.com/api/v2/docs/index.html
 common:
+- type: FinOps
+  url: finops/g2-finops.yml
 - type: CapabilityMap
   url: capabilities/g2-capability-edges.yml
   name: G2 Business Capability Map
