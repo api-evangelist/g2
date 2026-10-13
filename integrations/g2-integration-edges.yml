@@ -1,0 +1,25 @@
+generated: '2026-10-13'
+method: searched
+checked:
+- https://aws.amazon.com/marketplace/
+marketplace_apps: []
+edges:
+- partner_name: AWS Marketplace
+  partner: amazon-web-services
+  partner_match: aggregator
+  type: marketplace
+  marketplace: aws-marketplace
+  channel: distribution
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://aws.amazon.com/marketplace/seller-profile?id=d676c9cf-7f85-42e0-af3f-354f46e0ee0e
+  listing_count: 5
+  apps:
+  - G2 Data Solutions
+  - G2 Starter
+  - G2 AI Custom Research
+  - G2 Review Managed Services
+  - G2 Marketing Solutions
+  seller_name: G2
+  detected_by: sweep-cloud-marketplaces.py
+  detected: '2026-10-13'
