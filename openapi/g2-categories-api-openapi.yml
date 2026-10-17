@@ -478,21 +478,6 @@ paths:
                     updated_at: '2022-01-01T00:00:00.000-06:00'
 components:
   schemas:
-    cursor_pagination:
-      type: object
-      properties:
-        next:
-          type:
-          - string
-          - 'null'
-        prev:
-          type:
-          - string
-          - 'null'
-        self:
-          type:
-          - string
-          - 'null'
     Errors:
       type: object
       properties:
@@ -513,6 +498,21 @@ components:
                 type:
                 - object
                 - 'null'
+    cursor_pagination:
+      type: object
+      properties:
+        next:
+          type:
+          - string
+          - 'null'
+        prev:
+          type:
+          - string
+          - 'null'
+        self:
+          type:
+          - string
+          - 'null'
     included:
       type: array
       items:

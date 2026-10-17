@@ -325,21 +325,6 @@ paths:
                           - 'null'
 components:
   schemas:
-    cursor_pagination:
-      type: object
-      properties:
-        next:
-          type:
-          - string
-          - 'null'
-        prev:
-          type:
-          - string
-          - 'null'
-        self:
-          type:
-          - string
-          - 'null'
     Errors:
       type: object
       properties:
@@ -360,6 +345,21 @@ components:
                 type:
                 - object
                 - 'null'
+    cursor_pagination:
+      type: object
+      properties:
+        next:
+          type:
+          - string
+          - 'null'
+        prev:
+          type:
+          - string
+          - 'null'
+        self:
+          type:
+          - string
+          - 'null'
     included:
       type: array
       items:
