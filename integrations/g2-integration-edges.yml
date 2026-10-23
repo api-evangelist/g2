@@ -8,6 +8,7 @@ checked:
 - slack/integrations/slack-integration-edges.yml
 - https://app.snowflake.com/marketplace/providers
 - https://marketplace.databricks.com/
+- drupal/integrations/drupal-integration-edges.yml
 marketplace_apps: []
 edges:
 - partner_name: AWS Marketplace
@@ -29,42 +30,6 @@ edges:
   seller_name: G2
   detected_by: sweep-cloud-marketplaces.py
   detected: '2026-10-13'
-- partner_name: Microsoft Teams (own)
-  partner: microsoft-teams
-  partner_match: mirror
-  mirror_match: domain
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://appsource.microsoft.com/en-us/product/office/WA200012453
-  mirror_of: microsoft-teams/integrations/microsoft-teams-integration-edges.yml
-  apps:
-  - G2 MCP
-  listing_count: 1
-  detected: '2026-10-18'
-  detected_by: mirror-platform-listings.py
-  category: Microsoft Teams app
-  publisher_verified:
-  - Microsoft 365 Publisher Attestation
-- partner_name: Slack (own)
-  partner: slack
-  partner_match: mirror
-  mirror_match: domain
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://slack.com/marketplace/AUKLFH44A-g2-for-slack
-  mirror_of: slack/integrations/slack-integration-edges.yml
-  apps:
-  - G2 for Slack
-  listing_count: 1
-  detected: '2026-10-18'
-  detected_by: mirror-platform-listings.py
-  category: Slack app
 - partner_name: Fivetran
   partner: fivetran
   partner_match: aggregator
@@ -145,6 +110,59 @@ edges:
     identity_note: wikidata P856 g2.com for 'G2' (labelled identity step)
   detected_by: sweep-data-marketplaces.py
   detected: '2026-10-20'
+- partner_name: Microsoft Teams (own)
+  partner: microsoft-teams
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://appsource.microsoft.com/en-us/product/office/WA200012453
+  mirror_of: microsoft-teams/integrations/microsoft-teams-integration-edges.yml
+  apps:
+  - G2 MCP
+  listing_count: 1
+  detected: '2026-10-18'
+  detected_by: mirror-platform-listings.py
+  category: Microsoft Teams app
+  publisher_verified:
+  - Microsoft 365 Publisher Attestation
+- partner_name: Slack (own)
+  partner: slack
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://slack.com/marketplace/AUKLFH44A-g2-for-slack
+  mirror_of: slack/integrations/slack-integration-edges.yml
+  apps:
+  - G2 for Slack
+  listing_count: 1
+  detected: '2026-10-18'
+  detected_by: mirror-platform-listings.py
+  category: Slack app
+- partner_name: Drupal (own)
+  partner: drupal
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.drupal.org/project/g2_reviews
+  mirror_of: drupal/integrations/drupal-integration-edges.yml
+  apps:
+  - G2 Reviews
+  listing_count: 1
+  detected: '2026-10-22'
+  detected_by: mirror-platform-listings.py
+  category: Drupal contributed module
 source:
 - https://fivetran.com/docs-sitemap.xml
 - https://fivetran.com/docs/connectors/partner-built-program

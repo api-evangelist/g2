@@ -15,32 +15,6 @@
   relationship: distribution-channel
   status: not-a-workflow
   arazzo: null
-- slug: g2-microsoft-teams-own
-  label: Microsoft Teams (own)
-  partner: microsoft-teams
-  partner_name: Microsoft Teams (own)
-  category: Microsoft Teams app
-  type: marketplace
-  marketplace: own
-  channel: partner-built
-  evidence: https://appsource.microsoft.com/en-us/product/office/WA200012453
-  source: edge
-  relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
-- slug: g2-slack-own
-  label: Slack (own)
-  partner: slack
-  partner_name: Slack (own)
-  category: Slack app
-  type: marketplace
-  marketplace: own
-  channel: partner-built
-  evidence: https://slack.com/marketplace/AUKLFH44A-g2-for-slack
-  source: edge
-  relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
 - slug: g2-fivetran
   label: Fivetran
   partner: fivetran
@@ -121,5 +95,44 @@
     detected: '2026-10-20'
     identity_source: wikidata
     identity_note: wikidata P856 g2.com for 'G2' (labelled identity step)
+  status: not-a-workflow
+  arazzo: null
+- slug: g2-microsoft-teams-own
+  label: Microsoft Teams (own)
+  partner: microsoft-teams
+  partner_name: Microsoft Teams (own)
+  category: Microsoft Teams app
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://appsource.microsoft.com/en-us/product/office/WA200012453
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: g2-slack-own
+  label: Slack (own)
+  partner: slack
+  partner_name: Slack (own)
+  category: Slack app
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://slack.com/marketplace/AUKLFH44A-g2-for-slack
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: g2-drupal-own
+  label: Drupal (own)
+  partner: drupal
+  partner_name: Drupal (own)
+  category: Drupal contributed module
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://www.drupal.org/project/g2_reviews
+  source: edge
+  relationship: platform-app
   status: not-a-workflow
   arazzo: null
