@@ -733,3 +733,9 @@ components:
             data_subscriptions.read_write: Modify Data Subscription records
             partner:partner-id.read: Access records created in Partner realm
             performance_analytics.read: Read Performance Analytics data
+x-provenance:
+  method: harvested
+  publisher: G2
+  source: https://data.g2.com/openapi/data_solutions.yaml
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
