@@ -1,0 +1,82 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-10-28'
+method: searched
+source: https://sell.g2.com/plans
+sources:
+- https://sell.g2.com/plans
+provenance:
+  tool: engine/economics/harvest_pricing.py
+  run: 20261028T120612
+  grounding: every price_text was found verbatim in the fetched page text
+audience: business-product
+pricing_basis: tiered-subscription
+delivery:
+  delivery: managed
+  method: page
+  read: '2026-10-28'
+  managed_tier: Starter
+published: true
+note: G2 Marketing Solutions plan page; only Starter shows numeric pricing ($299/month or $2,999/year;
+  year 2 $599/month or $6,000/year). Add-ons (Buyer Intent, Content, G2 Clicks PPC, Paid Promotions) listed
+  without prices.
+plan_count: 4
+currency: USD
+plans:
+- name: Free
+  price_text: Free
+  period: none
+  included_quota: Unlimited Users, Basic Profile, Standard Seller Page, 'Users Love Us' Badge License,
+    Basic Review Collection and Syndication
+- name: Starter
+  price_text: $299/month (no contract, cancel anytime) or $2,999/year (save 16%)
+  currency: USD
+  period: month
+  included_quota: 'Everything in Free, plus: Unlimited Users, Single Profile Review Collection, $100 Gift
+    Card Review Credits, Custom CTAs, Upgraded Profile, Branded Banners + Review Campaigns, Report, Milestone,
+    and Annual Badge License'
+  overage: Pricing for year 1. Year 2 pricing increases to $599/month or $6,000/year.
+- name: Professional
+  price_text: Contact sales
+  period: none
+  included_quota: 'Everything in Starter, plus: 3 video reviews, $500 Gift Card Review Credits, Single
+    Product Custom CTAs, Review Management, Profile Visitor Data, Premium Seller Pages'
+- name: Enterprise
+  price_text: Contact sales
+  period: none
+  included_quota: 'Everything in Professional, plus: 5 video reviews, Multi-Profile Review Collection,
+    $1000 Gift Card Review Credits, Market Intelligence, Solutions Pages'
+x-canonical:
+  generated: '2026-11-01'
+  vocabulary: engine/economics/plans-canonical.yml
+  models:
+  - metered
+  units: []
+  plans:
+  - name: Free
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods:
+    - none
+  - name: Starter
+    access: other
+    model: metered
+    model_how: derived
+    units: []
+    periods:
+    - month
+  - name: Professional
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods:
+    - none
+  - name: Enterprise
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods:
+    - none
