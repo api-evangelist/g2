@@ -46,7 +46,7 @@ plans:
   included_quota: 'Everything in Professional, plus: 5 video reviews, Multi-Profile Review Collection,
     $1000 Gift Card Review Credits, Market Intelligence, Solutions Pages'
 x-canonical:
-  generated: '2026-11-01'
+  generated: '2026-11-02'
   vocabulary: engine/economics/plans-canonical.yml
   models:
   - metered
